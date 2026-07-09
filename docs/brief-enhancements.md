@@ -155,21 +155,13 @@ Cloudflare **Email Routing is receive/forward only** — it gives you `hello@<do
 
 ---
 
-## 5. Business Name Candidates
+## 5. Business Name — DECIDED: Tibyan (تبيان)
 
-Criteria: pronounceable and meaningful in both Arabic and English; carries the bridge/guidance positioning rather than generic "AI marketing"; no negative reading in either language; `.com` obtainable. DNS checks were run July 2026 — "appears unregistered" means no NS/A record was found, which is a strong but not conclusive signal; **verify in Cloudflare Registrar before committing.**
+**The owner has chosen "Tibyan" (تبيان — elucidation, making clear).** It fits the positioning precisely: an evidence-first consultancy whose entire promise is clarity in an opaque market — clearer data, clearer communications, clearer trust. Qur'anic resonance (تِبْيَانًا لِكُلِّ شَيْءٍ — "a clarification of all things") gives it weight with Arabic-speaking audiences without excluding English speakers ("tib-YAAN").
 
-| Candidate | Arabic | Meaning / why it fits | .com status (checked) |
-|---|---|---|---|
-| **Jisr Advisory** ⭐ | جسر | "Bridge" — literally the diaspora-bridge and investor-bridge positioning; short, easy for English speakers ("JISS-r") | `jisradvisory.com` appears unregistered |
-| **Jisr Strategy** | جسر | Same root, "strategy" reads more consulting than "advisory" | `jisrstrategy.com` appears unregistered |
-| **Levant Bridge** | جسر الشام | English-first variant; instantly legible geography for Western investors, pairs naturally with the "Gulf & Levant" report brand | `levantbridge.com` appears unregistered |
-| **Masar Levant** | مسار | "Masar" = path/trajectory; qualifier needed since bare Masar names are widely used | `masarlevant.com` appears unregistered |
-| **Nahda Bridge** | نهضة | "Nahda" = renaissance/awakening — historically resonant, reconstruction connotation | `nahdabridge.com` appears unregistered |
+**Domain status (DNS-checked July 2026 — verify in Cloudflare Registrar):** `tibyan.com` and `tibyan.co` are taken; **`tibyanstrategy.com`, `tibyanadvisory.com`, and `tibyanconsulting.com` all appear available.** Lean: `tibyanstrategy.com`.
 
-Taken/avoid: `masarstrategy.com`, `masaradvisory.com`, `manarastrategy.com` resolve already; **Manara** also collides with a known MENA tech-talent brand; **Bawsala** (compass) collides with a prominent Tunisian NGO; anything with **"Sham"** (الشام) reads as English "sham" (fake) — disqualifying for a trust-first brand.
-
-**Recommendation: Jisr Advisory** (`jisradvisory.com`), newsletter branded *"الجسر / The Bridge."* One name system covers the consultancy, the newsletter, and the diaspora-bridge service line. Naming the newsletter after the company's own metaphor compounds the brand instead of splitting it.
+Newsletter working title: *"تبيان — The Tibyan Briefing: marketing, AI, and Syria's reconstruction economy."*
 
 ---
 
