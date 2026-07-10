@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Small runtime image for Railway's builder.
-  output: "standalone",
   async redirects() {
     return [
       // Root redirect by browser language; Arabic first, English default.
