@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import NewsletterForm from "@/components/NewsletterForm";
+import CookiePrefsLink from "@/components/CookiePrefsLink";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -51,6 +52,9 @@ export default function Footer({ locale }: { locale: Locale }) {
               <Link href={`/${locale}/contact`} className="hover:text-sand-50">
                 {dict.nav.contact}
               </Link>
+            </li>
+            <li>
+              <CookiePrefsLink label={dict.consent.preferences} />
             </li>
           </ul>
         </nav>

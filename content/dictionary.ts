@@ -160,6 +160,13 @@ const en = {
     fallbackNotice:
       "This article has not been published in English yet — you are reading the original-language version.",
   },
+  consent: {
+    message:
+      "We use cookies and Google Tag Manager to understand how the site is used. Accept to help us improve it — essential functions work either way.",
+    accept: "Accept",
+    reject: "Decline",
+    preferences: "Cookie preferences",
+  },
 };
 
 /**
@@ -324,6 +331,13 @@ const ar: typeof en = {
     minRead: "دقائق قراءة",
     fallbackNotice:
       "لم تُنشر هذه المقالة بالعربية بعد — أنت تقرأ النسخة بلغتها الأصلية.",
+  },
+  consent: {
+    message:
+      "نستخدم ملفات تعريف الارتباط وGoogle Tag Manager لفهم كيفية استخدام الموقع. اقبل لمساعدتنا على تحسينه — والوظائف الأساسية تعمل في كل الأحوال.",
+    accept: "أوافق",
+    reject: "رفض",
+    preferences: "تفضيلات الارتباط",
   },
 };
 

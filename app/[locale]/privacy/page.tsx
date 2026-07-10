@@ -13,7 +13,11 @@ const content: Localized<{
     sections: [
       {
         heading: "What we collect",
-        body: "We collect the information you give us directly: your email address when you subscribe to the newsletter or use an interactive tool, your answers within those tools, and the contents of messages you send through the contact form. We use privacy-respecting analytics that do not track you across sites.",
+        body: "We collect the information you give us directly: your email address when you subscribe to the newsletter or use an interactive tool, your answers within those tools, and the contents of messages you send through the contact form.",
+      },
+      {
+        heading: "Cookies and analytics",
+        body: "We use Google Tag Manager to load analytics and measurement tags that help us understand how the site is used. These set cookies only after you accept them: on your first visit a banner lets you accept or decline, non-essential tracking stays off until you accept (Google Consent Mode), and you can change your choice any time via \"Cookie preferences\" in the footer. Essential functions work whether or not you accept.",
       },
       {
         heading: "How we use it",
@@ -35,7 +39,11 @@ const content: Localized<{
     sections: [
       {
         heading: "ما الذي نجمعه",
-        body: "نجمع المعلومات التي تقدّمها لنا مباشرة: بريدك الإلكتروني عند الاشتراك في النشرة أو استخدام أداة تفاعلية، وإجاباتك داخل تلك الأدوات، ومحتوى الرسائل المرسلة عبر نموذج التواصل. ونستخدم تحليلات تحترم الخصوصية ولا تتعقبك عبر المواقع.",
+        body: "نجمع المعلومات التي تقدّمها لنا مباشرة: بريدك الإلكتروني عند الاشتراك في النشرة أو استخدام أداة تفاعلية، وإجاباتك داخل تلك الأدوات، ومحتوى الرسائل المرسلة عبر نموذج التواصل.",
+      },
+      {
+        heading: "ملفات تعريف الارتباط والتحليلات",
+        body: "نستخدم Google Tag Manager لتحميل وسوم التحليلات والقياس التي تساعدنا على فهم كيفية استخدام الموقع. ولا تُفعَّل ملفات تعريف الارتباط إلا بعد موافقتك: في زيارتك الأولى يظهر شريط يتيح لك القبول أو الرفض، ويبقى التتبع غير الأساسي متوقفًا حتى توافق (وفق وضع الموافقة من Google)، ويمكنك تغيير اختيارك في أي وقت عبر «تفضيلات الارتباط» في تذييل الصفحة. أما الوظائف الأساسية فتعمل سواء وافقت أم لا.",
       },
       {
         heading: "كيف نستخدمها",
