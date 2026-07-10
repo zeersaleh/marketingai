@@ -11,6 +11,7 @@ interface Labels {
   langBoth: string;
   subscribe: string;
   success: string;
+  pending: string;
   error: string;
 }
 
@@ -23,9 +24,9 @@ export default function NewsletterForm({
 }) {
   const [email, setEmail] = useState("");
   const [language, setLanguage] = useState<string>(locale);
-  const [status, setStatus] = useState<"idle" | "busy" | "done" | "error">(
-    "idle"
-  );
+  const [status, setStatus] = useState<
+    "idle" | "busy" | "done" | "pending" | "error"
+  >("idle");
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -36,14 +37,23 @@ export default function NewsletterForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ email, locale, languagePreference: language }),
       });
-      setStatus(res.ok ? "done" : "error");
+      if (!res.ok) {
+        setStatus("error");
+        return;
+      }
+      const data = (await res.json()) as { status?: string };
+      setStatus(data.status === "pending" ? "pending" : "done");
     } catch {
       setStatus("error");
     }
   }
 
-  if (status === "done") {
-    return <p className="text-sm font-medium text-gold-300">{labels.success}</p>;
+  if (status === "done" || status === "pending") {
+    return (
+      <p className="text-sm font-medium text-gold-300">
+        {status === "pending" ? labels.pending : labels.success}
+      </p>
+    );
   }
 
   return (

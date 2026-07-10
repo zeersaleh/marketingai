@@ -8,6 +8,9 @@ export interface Lead {
   email: string;
   locale: string;
   payload?: Record<string, unknown>;
+  /** Newsletter double opt-in: false until the email link is clicked. */
+  confirmed?: boolean;
+  confirmToken?: string;
 }
 
 let pool: Pool | null = null;
@@ -23,6 +26,8 @@ function getPool(): Pool | null {
 
 function ensureTable(db: Pool): Promise<void> {
   if (!tableReady) {
+    // CREATE covers fresh installs; the ALTERs upgrade an existing table
+    // (from before double opt-in) without dropping data.
     tableReady = db
       .query(
         `CREATE TABLE IF NOT EXISTS leads (
@@ -31,8 +36,12 @@ function ensureTable(db: Pool): Promise<void> {
            email TEXT NOT NULL,
            locale TEXT NOT NULL,
            payload JSONB,
+           confirmed BOOLEAN NOT NULL DEFAULT true,
+           confirm_token TEXT,
            created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-         )`
+         );
+         ALTER TABLE leads ADD COLUMN IF NOT EXISTS confirmed BOOLEAN NOT NULL DEFAULT true;
+         ALTER TABLE leads ADD COLUMN IF NOT EXISTS confirm_token TEXT;`
       )
       .then(() => undefined);
   }
@@ -54,8 +63,16 @@ export async function saveLead(lead: Lead): Promise<void> {
   if (db) {
     await ensureTable(db);
     await db.query(
-      "INSERT INTO leads (source, email, locale, payload) VALUES ($1, $2, $3, $4)",
-      [lead.source, lead.email, lead.locale, lead.payload ?? null]
+      `INSERT INTO leads (source, email, locale, payload, confirmed, confirm_token)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [
+        lead.source,
+        lead.email,
+        lead.locale,
+        lead.payload ?? null,
+        lead.confirmed ?? true,
+        lead.confirmToken ?? null,
+      ]
     );
   } else {
     console.warn(
@@ -72,6 +89,26 @@ export async function saveLead(lead: Lead): Promise<void> {
       body: JSON.stringify({ ...lead, createdAt: new Date().toISOString() }),
     }).catch((err) => console.error("[leads] webhook failed", err));
   }
+}
+
+/**
+ * Confirm a newsletter subscription from its opt-in token.
+ * Returns the confirmed subscriber's locale (for the redirect) or null when
+ * the token is unknown/already used. No-op-safe when there is no database.
+ */
+export async function confirmSubscriber(
+  token: string
+): Promise<{ locale: string } | null> {
+  const db = getPool();
+  if (!db || !token) return null;
+  await ensureTable(db);
+  const res = await db.query<{ locale: string }>(
+    `UPDATE leads SET confirmed = true, confirm_token = NULL
+     WHERE confirm_token = $1 AND source = 'newsletter'
+     RETURNING locale`,
+    [token]
+  );
+  return res.rows[0] ?? null;
 }
 
 /**

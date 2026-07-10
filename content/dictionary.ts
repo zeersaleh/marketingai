@@ -118,6 +118,7 @@ const en = {
     langBoth: "Both",
     subscribe: "Subscribe",
     success: "You're on the list — thank you.",
+    pending: "Almost there — check your inbox to confirm your subscription.",
     error: "Subscription failed. Please try again.",
   },
   contact: {
@@ -283,6 +284,7 @@ const ar: typeof en = {
     langBoth: "كلتاهما",
     subscribe: "اشترك",
     success: "تم اشتراكك — شكرًا لك.",
+    pending: "بقيت خطوة — تفقّد بريدك لتأكيد الاشتراك.",
     error: "تعذّر الاشتراك. يرجى المحاولة مجددًا.",
   },
   contact: {

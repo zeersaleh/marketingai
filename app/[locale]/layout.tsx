@@ -42,6 +42,11 @@ export async function generateMetadata({
       template: `%s | ${siteName[locale]}`,
     },
     description: dict.brand.subline,
+    // Set GOOGLE_SITE_VERIFICATION to the token from Search Console's
+    // "HTML tag" method to verify ownership without a DNS record.
+    verification: process.env.GOOGLE_SITE_VERIFICATION
+      ? { google: process.env.GOOGLE_SITE_VERIFICATION }
+      : undefined,
   };
 }
 

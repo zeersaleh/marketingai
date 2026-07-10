@@ -1,4 +1,7 @@
+import { randomUUID } from "node:crypto";
+import { isLocale, siteUrl } from "@/lib/i18n";
 import { isValidEmail, saveLead, verifyTurnstile } from "@/lib/leads";
+import { isEmailConfigured, sendConfirmationEmail } from "@/lib/email";
 
 export async function POST(request: Request) {
   let body: {
@@ -14,6 +17,7 @@ export async function POST(request: Request) {
   }
 
   const email = body.email?.trim().toLowerCase() ?? "";
+  const locale = body.locale && isLocale(body.locale) ? body.locale : "en";
   if (!isValidEmail(email)) {
     return Response.json({ error: "invalid-email" }, { status: 400 });
   }
@@ -21,12 +25,25 @@ export async function POST(request: Request) {
     return Response.json({ error: "verification-failed" }, { status: 403 });
   }
 
+  // Double opt-in only when a mailer is configured; otherwise record as
+  // confirmed so subscriptions are never silently stuck pending.
+  const doubleOptIn = isEmailConfigured();
+  const confirmToken = doubleOptIn ? randomUUID() : undefined;
+
   await saveLead({
     source: "newsletter",
     email,
-    locale: body.locale === "ar" ? "ar" : "en",
+    locale,
     payload: { languagePreference: body.languagePreference ?? "both" },
+    confirmed: !doubleOptIn,
+    confirmToken,
   });
 
-  return Response.json({ ok: true });
+  if (doubleOptIn && confirmToken) {
+    const confirmUrl = `${siteUrl}/api/subscribe/confirm?token=${confirmToken}`;
+    await sendConfirmationEmail(email, locale, confirmUrl);
+    return Response.json({ status: "pending" });
+  }
+
+  return Response.json({ status: "subscribed" });
 }
