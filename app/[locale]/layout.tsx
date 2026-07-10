@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Script from "next/script";
 import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { dirOf, isLocale, locales, siteName, siteUrl } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
@@ -60,6 +61,10 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  // Public, non-secret container ID. Override per-environment with
+  // NEXT_PUBLIC_GTM_ID; empty string disables GTM entirely.
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-NSL66R33";
+
   return (
     <html
       lang={locale}
@@ -67,6 +72,22 @@ export default async function LocaleLayout({
       className={`${plex.variable} ${plexArabic.variable}`}
     >
       <body className="font-sans antialiased">
+        {gtmId && (
+          <>
+            <Script id="gtm" strategy="afterInteractive">
+              {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${gtmId}');`}
+            </Script>
+            <noscript>
+              <iframe
+                src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+                height="0"
+                width="0"
+                style={{ display: "none", visibility: "hidden" }}
+                title="gtm"
+              />
+            </noscript>
+          </>
+        )}
         <Header locale={locale} />
         <main>{children}</main>
         <Footer locale={locale} />
