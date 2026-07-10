@@ -58,7 +58,10 @@ export async function saveLead(lead: Lead): Promise<void> {
       [lead.source, lead.email, lead.locale, lead.payload ?? null]
     );
   } else {
-    console.log("[leads] (no DATABASE_URL — dev mode)", JSON.stringify(lead));
+    console.warn(
+      "[leads] WARNING: DATABASE_URL is not set — lead NOT persisted:",
+      JSON.stringify(lead)
+    );
   }
 
   const webhook = process.env.LEADS_WEBHOOK_URL;

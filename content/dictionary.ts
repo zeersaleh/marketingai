@@ -96,7 +96,7 @@ const en = {
     seeResults: "See my results",
     emailGateHeading: "Where should we send your results?",
     emailGateBody:
-      "Enter your email to view your score. We'll also send you a copy. No spam — see our privacy policy.",
+      "Enter your email to view your score. No spam — see our privacy policy.",
     emailPlaceholder: "you@company.com",
     alsoSubscribe: "Also send me the Tibyan Briefing (newsletter)",
     yourScore: "Your readiness score",
@@ -117,7 +117,7 @@ const en = {
     langAr: "Arabic",
     langBoth: "Both",
     subscribe: "Subscribe",
-    success: "Check your inbox to confirm your subscription.",
+    success: "You're on the list — thank you.",
     error: "Subscription failed. Please try again.",
   },
   contact: {
@@ -261,7 +261,7 @@ const ar: typeof en = {
     seeResults: "أظهر نتيجتي",
     emailGateHeading: "إلى أين نرسل نتيجتك؟",
     emailGateBody:
-      "أدخل بريدك الإلكتروني لعرض نتيجتك، وسنرسل لك نسخة منها. لا رسائل مزعجة — راجع سياسة الخصوصية.",
+      "أدخل بريدك الإلكتروني لعرض نتيجتك. لا رسائل مزعجة — راجع سياسة الخصوصية.",
     emailPlaceholder: "you@company.com",
     alsoSubscribe: "أرسلوا لي أيضًا نشرة تبيان",
     yourScore: "درجة جاهزيتك",
@@ -282,7 +282,7 @@ const ar: typeof en = {
     langAr: "العربية",
     langBoth: "كلتاهما",
     subscribe: "اشترك",
-    success: "تفقّد بريدك لتأكيد الاشتراك.",
+    success: "تم اشتراكك — شكرًا لك.",
     error: "تعذّر الاشتراك. يرجى المحاولة مجددًا.",
   },
   contact: {
