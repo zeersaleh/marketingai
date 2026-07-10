@@ -10,6 +10,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^18.0.6",
     "next": "16.2.10",
     "pg": "^8.22.0",
     "react": "19.2.4",

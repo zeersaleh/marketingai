@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { locales, siteUrl } from "@/lib/i18n";
 import { services } from "@/content/services";
 import { sectors } from "@/content/sectors";
-import { posts } from "@/content/posts";
+import { getAllPosts } from "@/lib/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
@@ -20,15 +20,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/terms",
   ];
 
-  const dynamicPaths = [
-    ...services.map((s) => `/services/${s.slug}`),
-    ...sectors.map((s) => `/sectors/${s.slug}`),
-    ...posts.map((p) => `/insights/${p.slug}`),
+  const posts = getAllPosts();
+  const entries: { path: string; lastModified: Date }[] = [
+    ...[...staticPaths,
+      ...services.map((s) => `/services/${s.slug}`),
+      ...sectors.map((s) => `/sectors/${s.slug}`),
+    ].map((path) => ({ path, lastModified: new Date() })),
+    ...posts.map((p) => ({
+      path: `/insights/${p.slug}`,
+      lastModified: new Date(p.date),
+    })),
   ];
 
-  return [...staticPaths, ...dynamicPaths].map((path) => ({
+  return entries.map(({ path, lastModified }) => ({
     url: `${siteUrl}/en${path}`,
-    lastModified: new Date(),
+    lastModified,
     alternates: {
       languages: Object.fromEntries(
         locales.map((l) => [l, `${siteUrl}/${l}${path}`])

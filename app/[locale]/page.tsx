@@ -5,7 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { services } from "@/content/services";
 import { sectors } from "@/content/sectors";
-import { posts } from "@/content/posts";
+import { getAllPosts } from "@/lib/posts";
 import CtaBand from "@/components/CtaBand";
 
 export async function generateMetadata({
@@ -26,7 +26,7 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const latest = posts.slice(0, 3);
+  const latest = getAllPosts().slice(0, 3);
 
   return (
     <>

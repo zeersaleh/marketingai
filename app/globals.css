@@ -33,3 +33,56 @@ body {
 [dir="rtl"] {
   line-height: 1.75;
 }
+
+/* Rendered markdown bodies (blog posts) */
+.post-body {
+  color: var(--color-ink-900);
+}
+.post-body p {
+  margin-block: 1.1rem;
+  line-height: 1.8;
+}
+.post-body h2 {
+  margin-block: 2rem 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-navy-900);
+}
+.post-body h3 {
+  margin-block: 1.5rem 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-navy-900);
+}
+.post-body ul,
+.post-body ol {
+  margin-block: 1.1rem;
+  padding-inline-start: 1.5rem;
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li {
+  margin-block: 0.4rem;
+  line-height: 1.7;
+}
+.post-body a {
+  color: var(--color-gold-600);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.post-body a:hover {
+  color: var(--color-navy-900);
+}
+.post-body blockquote {
+  margin-block: 1.25rem;
+  border-inline-start: 4px solid var(--color-gold-500);
+  padding-inline-start: 1rem;
+  color: var(--color-ink-600);
+}
+.post-body strong {
+  color: var(--color-navy-900);
+}

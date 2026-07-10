@@ -156,6 +156,8 @@ const en = {
     sub: "Analysis on marketing, AI, and Syria's reconstruction economy — written natively in Arabic and English.",
     updated: "Updated",
     minRead: "min read",
+    fallbackNotice:
+      "This article has not been published in English yet — you are reading the original-language version.",
   },
 };
 
@@ -318,6 +320,8 @@ const ar: typeof en = {
     sub: "تحليلات في التسويق والذكاء الاصطناعي واقتصاد إعادة إعمار سوريا — تُكتب بالعربية والإنجليزية كتابةً أصيلة.",
     updated: "آخر تحديث",
     minRead: "دقائق قراءة",
+    fallbackNotice:
+      "لم تُنشر هذه المقالة بالعربية بعد — أنت تقرأ النسخة بلغتها الأصلية.",
   },
 };
 

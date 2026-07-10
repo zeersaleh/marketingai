@@ -25,8 +25,10 @@ review that amends it — where they conflict, the enhancements win).
 
 | Path | Purpose |
 |---|---|
-| `content/dictionary.ts` | UI strings, both languages (drafted natively, not translated) |
-| `content/services.ts`, `content/sectors.ts`, `content/posts.ts` | Bilingual page content |
+| `content/dictionary.ts` | UI strings + homepage copy, both languages — see [`docs/content-guide.md`](docs/content-guide.md) |
+| `content/posts/*.{en,ar}.md` | Blog posts as Markdown — add two files, push, deployed (guide above) |
+| `content/services.ts`, `content/sectors.ts` | Bilingual page content |
+| `lib/posts.ts` | Post loader with language fallback + `/{locale}/feed.xml` RSS |
 | `lib/scorecard-config.ts` | Scorecard questions (client-safe) |
 | `lib/scorecard-scoring.ts` | Scoring model (server-only — the email gate is real) |
 | `lib/leads.ts` | Shared leads store: Postgres when `DATABASE_URL` is set, console in dev; optional webhook + Turnstile |

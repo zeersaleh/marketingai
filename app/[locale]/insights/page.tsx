@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
-import { posts } from "@/content/posts";
+import { getAllPosts } from "@/lib/posts";
 
 export async function generateMetadata({
   params,
@@ -28,7 +28,7 @@ export default async function InsightsPage({
 }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const sorted = [...posts].sort((a, b) => b.date.localeCompare(a.date));
+  const sorted = getAllPosts();
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
