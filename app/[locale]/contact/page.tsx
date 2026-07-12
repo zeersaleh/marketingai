@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { isLocale, type Locale } from "@/lib/i18n";
+import { contactEmail, isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import ContactForm from "@/components/ContactForm";
@@ -35,21 +35,35 @@ export default async function ContactPage({
         {dict.contact.heading}
       </h1>
 
-      {whatsapp && (
-        <div className="mt-8 rounded-xl border border-sand-200 bg-white p-6 shadow-sm">
+      <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        {whatsapp && (
+          <div className="rounded-xl border border-sand-200 bg-white p-6 shadow-sm">
+            <a
+              href={`https://wa.me/${whatsapp.replace(/[^\d]/g, "")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block rounded-md bg-[#128C4A] px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
+            >
+              {dict.contact.whatsappCta}
+            </a>
+            <p className="mt-3 text-sm text-ink-600">
+              {dict.contact.whatsappNote}
+            </p>
+          </div>
+        )}
+        <div className="rounded-xl border border-sand-200 bg-white p-6 shadow-sm">
           <a
-            href={`https://wa.me/${whatsapp.replace(/[^\d]/g, "")}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block rounded-md bg-[#128C4A] px-5 py-3 text-sm font-semibold text-white hover:opacity-90"
+            href={`mailto:${contactEmail}`}
+            className="inline-block rounded-md bg-navy-900 px-5 py-3 text-sm font-semibold text-sand-50 hover:bg-navy-800"
           >
-            {dict.contact.whatsappCta}
+            {dict.contact.emailCta}
           </a>
-          <p className="mt-3 text-sm text-ink-600">
-            {dict.contact.whatsappNote}
+          <p className="mt-3 text-sm text-ink-600">{dict.contact.emailNote}</p>
+          <p dir="ltr" className="mt-1 text-sm font-medium text-navy-900">
+            {contactEmail}
           </p>
         </div>
-      )}
+      </div>
 
       <h2 className="mt-10 text-xl font-semibold text-navy-900">
         {dict.contact.formHeading}

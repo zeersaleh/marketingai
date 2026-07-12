@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Locale } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import LanguageToggle from "@/components/LanguageToggle";
+import BrandMark from "@/components/BrandMark";
 
 export default function Header({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -18,14 +19,17 @@ export default function Header({ locale }: { locale: Locale }) {
       <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
         <Link
           href={`/${locale}`}
-          className="flex items-baseline gap-2 text-xl font-bold text-navy-900"
+          className="flex items-center gap-2.5 text-xl font-bold text-navy-900"
         >
-          <span>{dict.brand.name}</span>
-          {locale === "en" && (
-            <span className="text-base font-semibold text-gold-600">
-              {dict.brand.nameArabic}
-            </span>
-          )}
+          <BrandMark size={30} />
+          <span className="flex items-baseline gap-2">
+            <span>{dict.brand.name}</span>
+            {locale === "en" && (
+              <span className="text-base font-semibold text-gold-600">
+                {dict.brand.nameArabic}
+              </span>
+            )}
+          </span>
         </Link>
 
         <nav className="hidden items-center gap-6 text-sm font-medium text-ink-600 md:flex">

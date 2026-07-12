@@ -1,8 +1,15 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
-import { dirOf, isLocale, locales, siteName, siteUrl } from "@/lib/i18n";
+import {
+  contactEmail,
+  dirOf,
+  isLocale,
+  locales,
+  siteName,
+  siteUrl,
+} from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -29,6 +36,10 @@ const plexArabic = IBM_Plex_Sans_Arabic({
 
 export const dynamicParams = false;
 
+export const viewport: Viewport = {
+  themeColor: "#0a1e33",
+};
+
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
 }
@@ -48,6 +59,14 @@ export async function generateMetadata({
       template: `%s | ${siteName[locale]}`,
     },
     description: dict.brand.subline,
+    openGraph: {
+      siteName: siteName[locale],
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      images: ["/og.png"],
+    },
     // Set GOOGLE_SITE_VERIFICATION to the token from Search Console's
     // "HTML tag" method to verify ownership without a DNS record.
     verification: process.env.GOOGLE_SITE_VERIFICATION
@@ -65,10 +84,25 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const dict = getDictionary(locale);
 
   // Public, non-secret container ID. Override per-environment with
   // NEXT_PUBLIC_GTM_ID; empty string disables GTM entirely.
   const gtmId = process.env.NEXT_PUBLIC_GTM_ID ?? "GTM-NSL66R33";
+
+  // Organization identity for search and AI answer engines.
+  const orgJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: `${siteName.en} | ${siteName.ar}`,
+    url: siteUrl,
+    logo: `${siteUrl}/icon.svg`,
+    image: `${siteUrl}/og.png`,
+    email: contactEmail,
+    description: dict.brand.tagline,
+    knowsLanguage: ["en", "ar"],
+    areaServed: ["Syria", "Saudi Arabia", "Gulf Cooperation Council"],
+  };
 
   return (
     <html
@@ -77,6 +111,16 @@ export default async function LocaleLayout({
       className={`${plex.variable} ${plexArabic.variable}`}
     >
       <body className="font-sans antialiased">
+        <a
+          href="#content"
+          className="sr-only focus:not-sr-only focus:fixed focus:start-3 focus:top-3 focus:z-[60] focus:rounded-md focus:bg-navy-900 focus:px-4 focus:py-2 focus:text-sand-50"
+        >
+          {dict.a11y.skipToContent}
+        </a>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(orgJsonLd) }}
+        />
         {gtmId && (
           <>
             {/* Consent Mode defaults run first, then GTM loads — one script
@@ -96,7 +140,7 @@ export default async function LocaleLayout({
           </>
         )}
         <Header locale={locale} />
-        <main>{children}</main>
+        <main id="content">{children}</main>
         <Footer locale={locale} />
         {gtmId && <ConsentBanner locale={locale} />}
       </body>

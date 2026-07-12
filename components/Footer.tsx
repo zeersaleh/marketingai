@@ -1,8 +1,9 @@
 import Link from "next/link";
-import type { Locale } from "@/lib/i18n";
+import { contactEmail, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import NewsletterForm from "@/components/NewsletterForm";
 import CookiePrefsLink from "@/components/CookiePrefsLink";
+import BrandMark from "@/components/BrandMark";
 
 export default function Footer({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
@@ -12,15 +13,25 @@ export default function Footer({ locale }: { locale: Locale }) {
     <footer className="bg-navy-950 text-navy-100">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-3">
         <div>
-          <p className="text-lg font-bold text-sand-50">
-            {dict.brand.name}{" "}
-            {locale === "en" && (
-              <span className="text-gold-500">{dict.brand.nameArabic}</span>
-            )}
+          <p className="flex items-center gap-2 text-lg font-bold text-sand-50">
+            <BrandMark size={26} />
+            <span>
+              {dict.brand.name}{" "}
+              {locale === "en" && (
+                <span className="text-gold-500">{dict.brand.nameArabic}</span>
+              )}
+            </span>
           </p>
           <p className="mt-2 max-w-xs text-sm text-navy-100/80">
             {dict.footer.positioning}
           </p>
+          <a
+            href={`mailto:${contactEmail}`}
+            dir="ltr"
+            className="mt-3 inline-block text-sm text-gold-300 hover:text-sand-50"
+          >
+            {contactEmail}
+          </a>
         </div>
 
         <div>

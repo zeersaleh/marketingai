@@ -125,6 +125,8 @@ const en = {
     heading: "Contact",
     whatsappCta: "Message us on WhatsApp",
     whatsappNote: "Fastest first contact — we reply within one business day.",
+    emailCta: "Email us",
+    emailNote: "For proposals, documents, and anything formal.",
     formHeading: "Or send a message",
     name: "Name",
     email: "Email",
@@ -166,6 +168,9 @@ const en = {
     accept: "Accept",
     reject: "Decline",
     preferences: "Cookie preferences",
+  },
+  a11y: {
+    skipToContent: "Skip to content",
   },
 };
 
@@ -298,6 +303,8 @@ const ar: typeof en = {
     heading: "تواصل معنا",
     whatsappCta: "راسلنا عبر واتساب",
     whatsappNote: "أسرع وسيلة للتواصل الأول — نرد خلال يوم عمل واحد.",
+    emailCta: "راسلنا بالبريد",
+    emailNote: "للعروض والمستندات وكل ما هو رسمي.",
     formHeading: "أو أرسل رسالة",
     name: "الاسم",
     email: "البريد الإلكتروني",
@@ -338,6 +345,9 @@ const ar: typeof en = {
     accept: "أوافق",
     reject: "رفض",
     preferences: "تفضيلات الارتباط",
+  },
+  a11y: {
+    skipToContent: "انتقل إلى المحتوى",
   },
 };
 

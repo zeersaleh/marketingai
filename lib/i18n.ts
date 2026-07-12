@@ -23,3 +23,6 @@ export const siteName: Localized = {
 
 export const siteUrl =
   process.env.NEXT_PUBLIC_SITE_URL ?? "https://tibyanstrategy.com";
+
+export const contactEmail =
+  process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@tibyanstrategy.com";
