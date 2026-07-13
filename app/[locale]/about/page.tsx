@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { isLocale, type Locale, type Localized } from "@/lib/i18n";
+import {
+  founderName,
+  isLocale,
+  socialLinks,
+  type Locale,
+  type Localized,
+} from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import CtaBand from "@/components/CtaBand";
@@ -81,6 +87,23 @@ export default async function AboutPage({
   const page = content[locale];
   getDictionary(locale);
 
+  const founderLabels =
+    locale === "ar"
+      ? {
+          role: "المؤسس",
+          blurb:
+            "خبرة تصدير عملية بين أسواق المنطقة، وباحث دكتوراه في الجيواقتصاد. يقود تبيان من التقاطع بين التجارة الحقيقية والتحليل الكلي.",
+          linkedin: "لينكد إن",
+          x: "إكس (تويتر)",
+        }
+      : {
+          role: "Founder",
+          blurb:
+            "Hands-on MENA B2B trade experience and doctoral research in geoeconomics. Leads Tibyan from the intersection of real trade and macro analysis.",
+          linkedin: "LinkedIn",
+          x: "X (Twitter)",
+        };
+
   return (
     <>
       <section className="mx-auto max-w-3xl px-4 py-16">
@@ -88,6 +111,38 @@ export default async function AboutPage({
         <p className="mt-4 border-s-4 border-gold-500 ps-4 text-lg leading-relaxed text-ink-900">
           {page.intro}
         </p>
+
+        {/* Founder card */}
+        <div className="mt-10 rounded-xl border border-sand-200 bg-white p-6 shadow-sm">
+          <p className="text-xs font-semibold uppercase tracking-wide text-gold-600">
+            {founderLabels.role}
+          </p>
+          <p className="mt-1 text-2xl font-bold text-navy-900">
+            {founderName[locale]}
+          </p>
+          <p className="mt-2 leading-relaxed text-ink-600">
+            {founderLabels.blurb}
+          </p>
+          <div className="mt-4 flex flex-wrap gap-3">
+            <a
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md bg-navy-900 px-4 py-2 text-sm font-semibold text-sand-50 hover:bg-navy-800"
+            >
+              {founderLabels.linkedin}
+            </a>
+            <a
+              href={socialLinks.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-md border border-sand-200 px-4 py-2 text-sm font-semibold text-navy-900 hover:border-gold-500"
+            >
+              {founderLabels.x}
+            </a>
+          </div>
+        </div>
+
         <div className="mt-10 space-y-10">
           {page.sections.map((section) => (
             <div key={section.heading}>

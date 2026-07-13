@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { contactEmail, type Locale } from "@/lib/i18n";
+import { contactEmail, socialLinks, type Locale } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import NewsletterForm from "@/components/NewsletterForm";
 import CookiePrefsLink from "@/components/CookiePrefsLink";
@@ -32,6 +32,24 @@ export default function Footer({ locale }: { locale: Locale }) {
           >
             {contactEmail}
           </a>
+          <div className="mt-3 flex gap-4 text-sm">
+            <a
+              href={socialLinks.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-navy-100/80 hover:text-sand-50"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={socialLinks.x}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-navy-100/80 hover:text-sand-50"
+            >
+              X
+            </a>
+          </div>
         </div>
 
         <div>

@@ -26,3 +26,17 @@ export const siteUrl =
 
 export const contactEmail =
   process.env.NEXT_PUBLIC_CONTACT_EMAIL ?? "hello@tibyanstrategy.com";
+
+/** Public-facing contact/social identity (safe to bake in as defaults). */
+export const whatsappNumber =
+  process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "905317395933";
+
+export const socialLinks = {
+  linkedin: "https://www.linkedin.com/in/salehzeer/",
+  x: "https://x.com/Saleh_Zeer_",
+};
+
+export const founderName: Localized = {
+  en: "Saleh Zeer",
+  ar: "صالح زير",
+};

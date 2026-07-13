@@ -5,10 +5,12 @@ import { IBM_Plex_Sans, IBM_Plex_Sans_Arabic } from "next/font/google";
 import {
   contactEmail,
   dirOf,
+  founderName,
   isLocale,
   locales,
   siteName,
   siteUrl,
+  socialLinks,
 } from "@/lib/i18n";
 import { getDictionary } from "@/content/dictionary";
 import Header from "@/components/Header";
@@ -102,6 +104,12 @@ export default async function LocaleLayout({
     description: dict.brand.tagline,
     knowsLanguage: ["en", "ar"],
     areaServed: ["Syria", "Saudi Arabia", "Gulf Cooperation Council"],
+    sameAs: [socialLinks.linkedin, socialLinks.x],
+    founder: {
+      "@type": "Person",
+      name: founderName.en,
+      sameAs: [socialLinks.linkedin, socialLinks.x],
+    },
   };
 
   return (

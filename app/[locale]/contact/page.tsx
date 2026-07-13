@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { contactEmail, isLocale, type Locale } from "@/lib/i18n";
+import { contactEmail, isLocale, whatsappNumber, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import ContactForm from "@/components/ContactForm";
@@ -27,7 +27,7 @@ export default async function ContactPage({
 }) {
   const { locale } = await params;
   const dict = getDictionary(locale);
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+  const whatsapp = whatsappNumber;
 
   return (
     <section className="mx-auto max-w-2xl px-4 py-16">
