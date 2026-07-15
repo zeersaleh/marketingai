@@ -32,13 +32,17 @@ function truncateAtBoundary(value: string, maxLength: number): string {
   return `${clipped}…`;
 }
 
+/**
+ * A single llms.txt file-list item. Per the llmstxt.org spec, entries are
+ * markdown bullet-list items: `- [name](url): optional description`.
+ */
 function entry(title: string, url: string, description?: string): string {
   const link = `[${escapeMarkdownLink(title)}](${url})`;
-  if (!description) return link;
+  if (!description) return `- ${link}`;
   const desc = escapeMarkdownLink(
     truncateAtBoundary(description, MAX_DESCRIPTION_LENGTH)
   );
-  return `${link}: ${desc}`;
+  return `- ${link}: ${desc}`;
 }
 
 export function GET() {
