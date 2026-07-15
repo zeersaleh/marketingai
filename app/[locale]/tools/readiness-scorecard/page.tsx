@@ -3,6 +3,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import ScorecardTool from "@/components/ScorecardTool";
+import { JsonLd, localeUrl } from "@/lib/jsonld";
 
 export async function generateMetadata({
   params,
@@ -28,8 +29,19 @@ export default async function ScorecardPage({
   const { locale } = await params;
   const dict = getDictionary(locale);
 
+  const softwareJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: dict.tools.scorecardTitle,
+    description: dict.tools.scorecardDesc,
+    applicationCategory: "BusinessApplication",
+    url: localeUrl(locale, "/tools/readiness-scorecard"),
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  };
+
   return (
     <section className="mx-auto max-w-3xl px-4 py-16">
+      <JsonLd data={softwareJsonLd} />
       <h1 className="text-3xl font-bold text-navy-900 md:text-4xl">
         {dict.tools.scorecardTitle}
       </h1>
