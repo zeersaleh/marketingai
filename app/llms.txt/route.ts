@@ -1,4 +1,11 @@
-import { siteUrl } from "@/lib/i18n";
+import {
+  siteUrl,
+  siteName,
+  founderName,
+  contactEmail,
+  socialLinks,
+} from "@/lib/i18n";
+import { getDictionary } from "@/content/dictionary";
 import { services } from "@/content/services";
 import { sectors } from "@/content/sectors";
 import { getAllPosts } from "@/lib/posts";
@@ -6,24 +13,37 @@ import { getAllPosts } from "@/lib/posts";
 export const dynamic = "force-static";
 
 const MAX_POSTS = 20;
-const MAX_DESCRIPTION_LENGTH = 140;
+const MAX_DESCRIPTION_LENGTH = 160;
 
 function escapeMarkdownLink(value: string): string {
   return value.replace(/\[/g, "(").replace(/\]/g, ")");
 }
 
-function truncate(value: string, maxLength: number): string {
-  if (value.length <= maxLength) return value;
-  return `${value.slice(0, maxLength - 1).trimEnd()}…`;
+/** Trim to a whole-word boundary so descriptions never cut mid-word. */
+function truncateAtBoundary(value: string, maxLength: number): string {
+  const trimmed = value.trim();
+  if (trimmed.length <= maxLength) return trimmed;
+  const slice = trimmed.slice(0, maxLength);
+  const lastSpace = slice.lastIndexOf(" ");
+  const clipped = (lastSpace > 0 ? slice.slice(0, lastSpace) : slice).replace(
+    /[\s.,;:—-]+$/,
+    ""
+  );
+  return `${clipped}…`;
 }
 
 function entry(title: string, url: string, description?: string): string {
   const link = `[${escapeMarkdownLink(title)}](${url})`;
   if (!description) return link;
-  return `${link}: ${escapeMarkdownLink(truncate(description, MAX_DESCRIPTION_LENGTH))}`;
+  const desc = escapeMarkdownLink(
+    truncateAtBoundary(description, MAX_DESCRIPTION_LENGTH)
+  );
+  return `${link}: ${desc}`;
 }
 
 export function GET() {
+  const dict = getDictionary("en");
+
   const serviceLines = services
     .map((service) =>
       entry(service.name.en, `${siteUrl}/en/services/${service.slug}`, service.short.en)
@@ -43,31 +63,49 @@ export function GET() {
     )
     .join("\n");
 
-  const md = `# Tibyan
+  const md = `# ${siteName.en} (${siteName.ar})
 
-> Bilingual (English/Arabic) marketing and brand-strategy platform helping international investors enter Syria's reconstruction economy, plus applied-AI marketing enablement for KSA/Gulf teams. Every English page has an Arabic equivalent at the corresponding /ar/ path.
+> ${dict.brand.tagline} ${dict.brand.subline}
+
+${dict.hero.credibility}
+
+Founder: ${founderName.en} · Contact: ${contactEmail} · English pages are listed here; every page has an Arabic equivalent at the matching \`/ar/\` path.
 
 ## Services
 
+${entry(dict.sections.allServices, `${siteUrl}/en/services`, "Overview of all service lines.")}
 ${serviceLines}
 
 ## Sectors
 
+${entry(dict.sections.allSectors, `${siteUrl}/en/sectors`, "Overview of all sectors served.")}
 ${sectorLines}
 
 ## Insights
 
+${entry(dict.sections.allInsights, `${siteUrl}/en/insights`, "All articles on marketing, AI, and Syria's reconstruction economy.")}
 ${postLines}
 
 ## Tools
 
-${entry("AI Readiness Scorecard", `${siteUrl}/en/tools/readiness-scorecard`, "Self-assessment tool for AI marketing readiness.")}
+${entry(dict.tools.scorecardTitle, `${siteUrl}/en/tools/readiness-scorecard`, dict.tools.scorecardDesc)}
+${entry("All tools", `${siteUrl}/en/tools`, "Interactive, evidence-based instruments.")}
 
 ## Company
 
-${entry("About", `${siteUrl}/en/about`)}
-${entry("Book a Call", `${siteUrl}/en/book-a-call`)}
-${entry("Contact", `${siteUrl}/en/contact`)}
+${entry("About", `${siteUrl}/en/about`, "Who Tibyan is, and how we work.")}
+${entry("Book a Call", `${siteUrl}/en/book-a-call`, "Schedule an introductory consultation.")}
+${entry("Contact", `${siteUrl}/en/contact`, "Get in touch with the team.")}
+${entry("LinkedIn", socialLinks.linkedin)}
+${entry("X (Twitter)", socialLinks.x)}
+
+## Optional
+
+${entry("Home", `${siteUrl}/en`, "Homepage.")}
+${entry("Subscribe", `${siteUrl}/en/subscribe`, "Get new insights by email.")}
+${entry("RSS feed", `${siteUrl}/en/feed.xml`, "Insights RSS feed.")}
+${entry("Privacy Policy", `${siteUrl}/en/privacy`)}
+${entry("Terms", `${siteUrl}/en/terms`)}
 `;
 
   return new Response(md, {
