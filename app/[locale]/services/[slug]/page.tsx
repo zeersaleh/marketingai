@@ -5,6 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getService, services } from "@/content/services";
 import CtaBand from "@/components/CtaBand";
+import { JsonLd, breadcrumbList, localeUrl, organizationRef } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -38,6 +39,22 @@ export default async function ServicePage({
   if (!service) notFound();
   const dict = getDictionary(locale);
 
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: service.name[locale],
+    description: service.short[locale],
+    provider: organizationRef(),
+    areaServed: ["Syria", "Saudi Arabia", "Gulf Cooperation Council"],
+    url: localeUrl(locale, `/services/${slug}`),
+  };
+
+  const breadcrumbJsonLd = breadcrumbList([
+    { name: locale === "ar" ? "الرئيسية" : "Home", url: localeUrl(locale, "") },
+    { name: dict.nav.services, url: localeUrl(locale, "/services") },
+    { name: service.name[locale], url: localeUrl(locale, `/services/${slug}`) },
+  ]);
+
   const labels =
     locale === "ar"
       ? { problem: "المشكلة", approach: "منهجنا", deliverables: "المخرجات", forWho: "لمن هذه الخدمة" }
@@ -45,6 +62,8 @@ export default async function ServicePage({
 
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="bg-navy-950 text-sand-50">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <h1 className="max-w-3xl text-4xl font-bold">{service.name[locale]}</h1>

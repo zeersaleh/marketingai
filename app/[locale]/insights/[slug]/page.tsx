@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { dirOf, isLocale, locales, siteUrl, type Locale } from "@/lib/i18n";
+import { dirOf, founderName, isLocale, locales, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getAllPosts, getPost } from "@/lib/posts";
+import { JsonLd, breadcrumbList, localeUrl, organizationRef } from "@/lib/jsonld";
 import CtaBand from "@/components/CtaBand";
 import NewsletterForm from "@/components/NewsletterForm";
 
@@ -49,17 +50,22 @@ export default async function PostPage({
     headline: post.title[locale],
     datePublished: post.date,
     inLanguage: contentLocale,
-    url: `${siteUrl}/${locale}/insights/${post.slug}`,
-    author: { "@type": "Organization", name: "Tibyan" },
+    url: localeUrl(locale, `/insights/${post.slug}`),
+    author: { "@type": "Person", name: founderName.en },
+    publisher: organizationRef(),
   };
+
+  const breadcrumbJsonLd = breadcrumbList([
+    { name: locale === "ar" ? "الرئيسية" : "Home", url: localeUrl(locale, "") },
+    { name: dict.nav.insights, url: localeUrl(locale, "/insights") },
+    { name: post.title[locale], url: localeUrl(locale, `/insights/${post.slug}`) },
+  ]);
 
   return (
     <>
       <article className="mx-auto max-w-3xl px-4 py-16">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <JsonLd data={jsonLd} />
+        <JsonLd data={breadcrumbJsonLd} />
         <p className="text-xs font-semibold uppercase tracking-wide text-gold-600">
           {post.pillar[locale]}
         </p>

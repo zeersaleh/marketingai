@@ -7,6 +7,7 @@ import { getDictionary } from "@/content/dictionary";
 import { getSector, sectors } from "@/content/sectors";
 import { getService } from "@/content/services";
 import CtaBand from "@/components/CtaBand";
+import { JsonLd, breadcrumbList, localeUrl } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -40,6 +41,12 @@ export default async function SectorPage({
   if (!sector) notFound();
   const dict = getDictionary(locale);
 
+  const breadcrumbJsonLd = breadcrumbList([
+    { name: locale === "ar" ? "الرئيسية" : "Home", url: localeUrl(locale, "") },
+    { name: dict.nav.sectors, url: localeUrl(locale, "/sectors") },
+    { name: sector.name[locale], url: localeUrl(locale, `/sectors/${slug}`) },
+  ]);
+
   const needsHeading =
     locale === "ar"
       ? "ما يحتاجه هذا القطاع من التسويق والاتصالات"
@@ -47,6 +54,7 @@ export default async function SectorPage({
 
   return (
     <>
+      <JsonLd data={breadcrumbJsonLd} />
       <section className="bg-navy-950 text-sand-50">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <h1 className="max-w-3xl text-4xl font-bold">{sector.name[locale]}</h1>
