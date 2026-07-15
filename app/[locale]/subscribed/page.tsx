@@ -23,12 +23,17 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  return pageMetadata(
-    locale,
-    "/subscribed",
-    content[locale].title,
-    content[locale].body
-  );
+  // Transactional confirmation page: kept out of the sitemap and
+  // explicitly non-indexable so a stray crawl can't index it.
+  return {
+    ...pageMetadata(
+      locale,
+      "/subscribed",
+      content[locale].title,
+      content[locale].body
+    ),
+    robots: { index: false },
+  };
 }
 
 export default async function SubscribedPage({

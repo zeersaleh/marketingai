@@ -16,7 +16,7 @@ export function pageMetadata(
     locales.map((l) => [l, `${siteUrl}/${l}${path}`])
   );
   return {
-    title: `${title} | ${siteName[locale]}`,
+    title: { absolute: `${title} | ${siteName[locale]}` },
     description,
     alternates: {
       canonical: `${siteUrl}/${locale}${path}`,
