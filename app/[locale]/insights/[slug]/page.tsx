@@ -27,7 +27,8 @@ export async function generateMetadata({
     locale,
     `/insights/${slug}`,
     post.title[locale],
-    post.excerpt[locale]
+    post.excerpt[locale],
+    { ogType: "article", publishedTime: post.date, modifiedTime: post.date }
   );
 }
 

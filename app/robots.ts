@@ -14,6 +14,7 @@ export default function robots(): MetadataRoute.Robots {
       // matching its own group ignores the "*" group, so /api/ is
       // repeated here to keep it off-limits for these crawlers too.
       { userAgent: "GPTBot", allow: "/", disallow: "/api/" },
+      { userAgent: "OAI-SearchBot", allow: "/", disallow: "/api/" },
       { userAgent: "ClaudeBot", allow: "/", disallow: "/api/" },
       { userAgent: "PerplexityBot", allow: "/", disallow: "/api/" },
       { userAgent: "Google-Extended", allow: "/", disallow: "/api/" },
