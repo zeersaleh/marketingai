@@ -32,14 +32,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   ];
 
-  return entries.map(({ path, lastModified }) => ({
-    url: `${siteUrl}/en${path}`,
-    lastModified,
-    alternates: {
-      languages: {
-        ...Object.fromEntries(locales.map((l) => [l, `${siteUrl}/${l}${path}`])),
-        "x-default": `${siteUrl}/en${path}`,
+  // One <url> entry per locale per path — Google expects every language
+  // version listed as its own entry, each carrying the full alternate set.
+  return locales.flatMap((locale) =>
+    entries.map(({ path, lastModified }) => ({
+      url: `${siteUrl}/${locale}${path}`,
+      lastModified,
+      alternates: {
+        languages: {
+          ...Object.fromEntries(
+            locales.map((l) => [l, `${siteUrl}/${l}${path}`])
+          ),
+          "x-default": `${siteUrl}/en${path}`,
+        },
       },
-    },
-  }));
+    }))
+  );
 }
