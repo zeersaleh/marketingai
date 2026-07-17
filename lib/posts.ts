@@ -30,6 +30,22 @@ const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
 let cache: Post[] | null = null;
 
+/**
+ * Prefixes the display locale onto root-relative internal links in rendered
+ * post HTML. Markdown bodies are written locale-agnostic (e.g. /book-a-call),
+ * but every route lives under /<locale>/..., so an unprefixed link would treat
+ * its first segment as the locale and 404. Skips protocol-relative (//host) and
+ * already-localized (/en, /ar) hrefs; leaves anchors, mailto:, and http(s):
+ * links untouched (they don't start with "/").
+ */
+function localizeInternalLinks(html: string, locale: Locale): string {
+  return html.replace(/href="(\/[^"]*)"/g, (full, href: string) => {
+    if (href.startsWith("//")) return full; // protocol-relative external
+    if (/^\/(en|ar)(\/|#|\?|$)/.test(href)) return full; // already localized
+    return `href="/${locale}${href}"`;
+  });
+}
+
 function parseFile(filePath: string): PostFile {
   const raw = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(raw);
@@ -91,7 +107,9 @@ export function getAllPosts(): Post[] {
       pillar: localized("pillar"),
       title: localized("title"),
       excerpt: localized("excerpt"),
-      html: localized("html"),
+      html: Object.fromEntries(
+        locales.map((l) => [l, localizeInternalLinks(pick(l).file.html, l)])
+      ) as Localized,
     });
   }
 
