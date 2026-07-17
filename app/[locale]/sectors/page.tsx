@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { sectors } from "@/content/sectors";
+import { JsonLd, itemList, localeUrl } from "@/lib/jsonld";
 import CtaBand from "@/components/CtaBand";
 
 export async function generateMetadata({
@@ -27,6 +28,14 @@ export default async function SectorsPage({
 
   return (
     <>
+      <JsonLd
+        data={itemList(
+          sectors.map((sector) => ({
+            name: sector.name[locale],
+            url: localeUrl(locale, `/sectors/${sector.slug}`),
+          }))
+        )}
+      />
       <section className="mx-auto max-w-6xl px-4 py-16">
         <h1 className="text-4xl font-bold text-navy-900">
           {dict.sections.sectors}

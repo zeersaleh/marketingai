@@ -7,7 +7,13 @@ import { getDictionary } from "@/content/dictionary";
 import { getSector, sectors } from "@/content/sectors";
 import { getService } from "@/content/services";
 import CtaBand from "@/components/CtaBand";
-import { JsonLd, breadcrumbList, localeUrl } from "@/lib/jsonld";
+import {
+  JsonLd,
+  breadcrumbList,
+  faqPage,
+  localeUrl,
+  organizationRef,
+} from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -41,6 +47,16 @@ export default async function SectorPage({
   if (!sector) notFound();
   const dict = getDictionary(locale);
 
+  const sectorJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: sector.name[locale],
+    description: sector.context[locale],
+    provider: organizationRef(),
+    areaServed: ["Syria", "Saudi Arabia", "Gulf Cooperation Council"],
+    url: localeUrl(locale, `/sectors/${slug}`),
+  };
+
   const breadcrumbJsonLd = breadcrumbList([
     { name: locale === "ar" ? "الرئيسية" : "Home", url: localeUrl(locale, "") },
     { name: dict.nav.sectors, url: localeUrl(locale, "/sectors") },
@@ -51,10 +67,21 @@ export default async function SectorPage({
     locale === "ar"
       ? "ما يحتاجه هذا القطاع من التسويق والاتصالات"
       : "What this sector needs from marketing & communications";
+  const faqHeading =
+    locale === "ar" ? "الأسئلة الشائعة" : "Frequently asked questions";
+
+  const faqJsonLd = faqPage(
+    sector.faqs.map((faq) => ({
+      question: faq.question[locale],
+      answer: faq.answer[locale],
+    }))
+  );
 
   return (
     <>
+      <JsonLd data={sectorJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
       <section className="bg-navy-950 text-sand-50">
         <div className="mx-auto max-w-6xl px-4 py-16">
           <h1 className="max-w-3xl text-4xl font-bold">{sector.name[locale]}</h1>
@@ -101,6 +128,22 @@ export default async function SectorPage({
               </Link>
             );
           })}
+        </div>
+
+        <h2 className="mt-12 text-sm font-semibold uppercase tracking-wide text-gold-600">
+          {faqHeading}
+        </h2>
+        <div className="mt-4 space-y-6">
+          {sector.faqs.map((faq) => (
+            <div key={faq.question.en}>
+              <h3 className="font-semibold text-navy-900">
+                {faq.question[locale]}
+              </h3>
+              <p className="mt-2 leading-relaxed text-ink-900">
+                {faq.answer[locale]}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 

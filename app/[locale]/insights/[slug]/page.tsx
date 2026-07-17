@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { dirOf, founderName, isLocale, locales, type Locale } from "@/lib/i18n";
+import { dirOf, isLocale, locales, siteUrl, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getAllPosts, getPost } from "@/lib/posts";
-import { JsonLd, breadcrumbList, localeUrl, organizationRef } from "@/lib/jsonld";
+import {
+  JsonLd,
+  breadcrumbList,
+  founderPerson,
+  localeUrl,
+  organizationRef,
+} from "@/lib/jsonld";
 import CtaBand from "@/components/CtaBand";
 import NewsletterForm from "@/components/NewsletterForm";
 import LinkedInNewsletterLink from "@/components/LinkedInNewsletterLink";
@@ -27,7 +33,8 @@ export async function generateMetadata({
     locale,
     `/insights/${slug}`,
     post.title[locale],
-    post.excerpt[locale]
+    post.excerpt[locale],
+    { ogType: "article", publishedTime: post.date, modifiedTime: post.date }
   );
 }
 
@@ -50,9 +57,12 @@ export default async function PostPage({
     "@type": "Article",
     headline: post.title[locale],
     datePublished: post.date,
+    dateModified: post.date,
     inLanguage: contentLocale,
     url: localeUrl(locale, `/insights/${post.slug}`),
-    author: { "@type": "Person", name: founderName.en },
+    mainEntityOfPage: localeUrl(locale, `/insights/${post.slug}`),
+    image: `${siteUrl}/og.png`,
+    author: founderPerson(locale),
     publisher: organizationRef(),
   };
 

@@ -8,6 +8,7 @@ import {
 } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
+import { JsonLd, founderPerson } from "@/lib/jsonld";
 import CtaBand from "@/components/CtaBand";
 
 const content: Localized<{
@@ -106,6 +107,9 @@ export default async function AboutPage({
 
   return (
     <>
+      <JsonLd
+        data={{ "@context": "https://schema.org", ...founderPerson(locale) }}
+      />
       <section className="mx-auto max-w-3xl px-4 py-16">
         <h1 className="text-4xl font-bold text-navy-900">{page.title}</h1>
         <p className="mt-4 border-s-4 border-gold-500 ps-4 text-lg leading-relaxed text-ink-900">

@@ -6,6 +6,11 @@ export interface ServiceTier {
   description: Localized;
 }
 
+export interface Faq {
+  question: Localized;
+  answer: Localized;
+}
+
 export interface Service {
   slug: string;
   name: Localized;
@@ -15,6 +20,7 @@ export interface Service {
   deliverables: Localized<string[]>;
   forWho: Localized;
   tiers: ServiceTier[];
+  faqs: Faq[];
 }
 
 const standardTiers = (
@@ -92,6 +98,38 @@ export const services: Service[] = [
         ar: "دعم بحثي واستراتيجي مستمر مع تقدّم دخولك فصلًا بعد فصل.",
       }
     ),
+    faqs: [
+      {
+        question: {
+          en: "How can you size a market when Syria has no reliable data?",
+          ar: "كيف تقدّرون حجم السوق وسوريا بلا بيانات موثوقة؟",
+        },
+        answer: {
+          en: "We build proxy-data models from comparable markets — Jordan, Lebanon, pre-2011 Syrian baselines, and diaspora behavior — then close the gaps that matter for your decision with targeted primary research: surveys, partner interviews, and field checks. Every assumption is documented with its source.",
+          ar: "نبني نماذج بيانات بديلة من أسواق مشابهة — الأردن ولبنان وخطوط الأساس السورية قبل 2011 وسلوك الاغتراب — ثم نسدّ الفجوات المؤثرة في قرارك ببحث ميداني موجّه: استطلاعات ومقابلات مع الشركاء وتحقق ميداني. وكل افتراض موثّق بمصدره.",
+        },
+      },
+      {
+        question: {
+          en: "Who is market-entry strategy for?",
+          ar: "لمن هذه الخدمة؟",
+        },
+        answer: {
+          en: "Investors and operators at feasibility or pre-launch stage, in any sector.",
+          ar: "المستثمرون والمشغّلون في مرحلة دراسة الجدوى أو ما قبل الإطلاق، في أي قطاع.",
+        },
+      },
+      {
+        question: {
+          en: "How long does an engagement take?",
+          ar: "كم يستغرق التعاون؟",
+        },
+        answer: {
+          en: "A readiness audit takes one week. A full market-entry strategy with proxy modeling and targeted primary research runs 6–10 weeks. Ongoing research and strategy support is available as your entry unfolds quarter by quarter.",
+          ar: "تدقيق الجاهزية يستغرق أسبوعًا واحدًا. والاستراتيجية الكاملة لدخول السوق مع النمذجة البديلة والبحث الميداني الموجّه تمتد من 6 إلى 10 أسابيع. ويتوافر دعم بحثي واستراتيجي مستمر مع تقدّم دخولك فصلًا بعد فصل.",
+        },
+      },
+    ],
   },
   {
     slug: "responsible-investment-communications",
@@ -145,6 +183,38 @@ export const services: Service[] = [
         ar: "استشارة اتصالات دائمة عبر دورة أخبار إعادة الإعمار.",
       }
     ),
+    faqs: [
+      {
+        question: {
+          en: "Why do reconstruction investments need special communications?",
+          ar: "لماذا تحتاج استثمارات إعادة الإعمار إلى اتصالات من نوع خاص؟",
+        },
+        answer: {
+          en: "Reconstruction investment is publicly scrutinized — by media, regulators, communities, and your own home-market stakeholders. Syria also remains under residual restrictions such as targeted sanctions and export controls, so what you say publicly carries real risk.",
+          ar: "استثمارات إعادة الإعمار تخضع لتدقيق علني — من الإعلام والجهات الرقابية والمجتمعات المحلية وأصحاب المصلحة في بلدك الأم. وما تزال سوريا خاضعة لقيود متبقية كالعقوبات الموجهة وقيود التصدير، فما تقوله علنًا يحمل مخاطر حقيقية.",
+        },
+      },
+      {
+        question: {
+          en: "Do you replace legal or compliance counsel?",
+          ar: "هل تحلّون محل المستشارين القانونيين ومسؤولي الامتثال؟",
+        },
+        answer: {
+          en: "No. We work alongside your legal and compliance counsel — we do not replace them. Our work covers stakeholder mapping with association-risk screening, message architecture that names risk honestly, and government- and community-facing communications in both languages.",
+          ar: "لا. نعمل إلى جانب مستشاريك القانونيين ومسؤولي الامتثال — ولا نحلّ محلهم. يشمل عملنا خريطة أصحاب المصلحة مع فحص مخاطر الارتباط، وهيكل رسائل يسمّي المخاطر بصدق، واتصالات موجهة للجهات الحكومية والمجتمعية باللغتين.",
+        },
+      },
+      {
+        question: {
+          en: "Who needs this service?",
+          ar: "من يحتاج هذه الخدمة؟",
+        },
+        answer: {
+          en: "Any investor whose entry will be publicly visible — which, in Syria today, is every investor.",
+          ar: "كل مستثمر سيكون دخوله مرئيًا للعامة — وهذا في سوريا اليوم يشمل كل مستثمر.",
+        },
+      },
+    ],
   },
   {
     slug: "ai-marketing-execution",
@@ -195,6 +265,38 @@ export const services: Service[] = [
         ar: "تشغيل تسويقي مُدار بالذكاء الاصطناعي مع نموّ فريقك داخل السوق.",
       }
     ),
+    faqs: [
+      {
+        question: {
+          en: "Is your Arabic content machine-translated?",
+          ar: "هل محتواكم العربي مترجم آليًا؟",
+        },
+        answer: {
+          en: "No. Campaigns are Arabic-first: content is drafted natively in Arabic, never machine-translated, and both languages are written from one strategic brief.",
+          ar: "لا. الحملات عربية أولًا: يُكتب المحتوى بالعربية كتابةً أصيلة لا ترجمة آلية، وتُكتب اللغتان من موجز استراتيجي واحد.",
+        },
+      },
+      {
+        question: {
+          en: "What is GEO (answer-engine optimization)?",
+          ar: "ما هي تهيئة محركات الإجابة (GEO)؟",
+        },
+        answer: {
+          en: "GEO optimizes your content to be cited by AI answer engines — not just ranked by search. Visibility increasingly happens inside AI answers, and a GEO program is part of this service.",
+          ar: "تهيئة محركات الإجابة تجعل محتواك مادةً يُستشهد بها في إجابات الذكاء الاصطناعي — لا مجرد نتيجة في البحث. فالحضور اليوم يتحقق داخل محركات الإجابة، وبرنامج GEO جزء من هذه الخدمة.",
+        },
+      },
+      {
+        question: {
+          en: "How do you choose which AI tools to use?",
+          ar: "كيف تختارون أدوات الذكاء الاصطناعي؟",
+        },
+        answer: {
+          en: "Every tool passes a documented evaluation before it is recommended: data handling and residency, Arabic-language quality tested natively, output reliability on real marketing tasks, and total cost against the workflow it replaces. Our evaluation criteria are public.",
+          ar: "تجتاز كل أداة تقييمًا موثقًا قبل التوصية بها: التعامل مع البيانات ومكان إقامتها، وجودة اللغة العربية مختبرةً بالعربية، وموثوقية المخرجات في مهام تسويقية حقيقية، والكلفة الكلية مقابل سير العمل الذي تستبدله. ومعايير تقييمنا معلنة.",
+        },
+      },
+    ],
   },
   {
     slug: "diaspora-bridge-strategy",
@@ -248,6 +350,38 @@ export const services: Service[] = [
         ar: "علاقات مجتمع واغتراب مستمرة مع تجذّر عملياتك.",
       }
     ),
+    faqs: [
+      {
+        question: {
+          en: "Why does the Syrian diaspora matter for market entry?",
+          ar: "لماذا يهمّ الاغتراب السوري في دخول السوق؟",
+        },
+        answer: {
+          en: "You cannot buy local trust with media spend. The Syrian diaspora — investors, professionals, families — is the single most effective bridge into it, because their endorsement is what Syrian communities actually trust.",
+          ar: "الثقة المحلية لا تُشترى بالإنفاق الإعلاني. الاغتراب السوري — مستثمرين ومهنيين وعائلات — هو الجسر الأكثر فاعلية إليها، لأن تزكيتهم هي ما تثق به المجتمعات السورية فعلًا.",
+        },
+      },
+      {
+        question: {
+          en: "What does a diaspora engagement program include?",
+          ar: "ماذا يتضمن برنامج التفاعل مع الاغتراب؟",
+        },
+        answer: {
+          en: "A map of the diaspora networks relevant to your sector and origin market, engagement programs such as advisory circles, talent pipelines, and community partnerships, community-facing storytelling in Arabic and English, and measurement of trust signals over time.",
+          ar: "خريطة شبكات الاغتراب ذات الصلة بقطاعك وسوق منشئك، وبرامج تفاعل كالحلقات الاستشارية ومسارات الكفاءات والشراكات المجتمعية، وسردًا موجّهًا للمجتمع بالعربية والإنجليزية، وقياس مؤشرات الثقة عبر الزمن.",
+        },
+      },
+      {
+        question: {
+          en: "Which sectors benefit most from diaspora strategy?",
+          ar: "أي القطاعات تستفيد أكثر من استراتيجية الاغتراب؟",
+        },
+        answer: {
+          en: "Consumer-facing and community-dependent entrants: real estate, healthcare, telecom, and agriculture.",
+          ar: "الداخلون المعتمدون على المستهلك والمجتمع: العقارات، والرعاية الصحية، والاتصالات، والزراعة.",
+        },
+      },
+    ],
   },
   {
     slug: "applied-ai-for-marketing-teams",
@@ -310,6 +444,38 @@ export const services: Service[] = [
         description: {
           en: "Ongoing coaching, tool evaluation, and workflow upgrades as the field moves.",
           ar: "تدريب مستمر وتقييم للأدوات وتحديث لسير العمل مع تطور المجال.",
+        },
+      },
+    ],
+    faqs: [
+      {
+        question: {
+          en: "How is this different from an AI literacy course?",
+          ar: "بمَ يختلف هذا عن دورات الثقافة العامة في الذكاء الاصطناعي؟",
+        },
+        answer: {
+          en: "AI literacy programs are everywhere — and free. This program runs on your team's live campaigns: real briefs, real content, real reporting. By the end, the team isn't 'aware of AI' — it ships AI-assisted work weekly, with quality controls and an evaluated tool stack.",
+          ar: "برامج الثقافة العامة متاحة في كل مكان — ومجانًا. هذا البرنامج يعمل على حملات فريقك الفعلية: موجزات حقيقية ومحتوى حقيقي وتقارير حقيقية. وفي نهايته لا يكون الفريق «مطّلعًا على الذكاء الاصطناعي» بل يُنجز أسبوعيًا عملًا معزّزًا به، مع ضوابط جودة ومنظومة أدوات مُقيَّمة.",
+        },
+      },
+      {
+        question: {
+          en: "How long is the program and how is it delivered?",
+          ar: "كم مدة البرنامج وكيف يُقدَّم؟",
+        },
+        answer: {
+          en: "The core offer is 4–6 weeks embedded with your team on live campaigns, delivered remotely across KSA and the Gulf, in Arabic and English. A one-day open workshop and an ongoing enablement retainer are also available.",
+          ar: "العرض الأساسي من 4 إلى 6 أسابيع مع فريقك على حملات فعلية، ويُقدَّم عن بُعد في السعودية والخليج بالعربية والإنجليزية. وتتوافر أيضًا ورشة عمل مفتوحة ليوم واحد وتمكين مستمر.",
+        },
+      },
+      {
+        question: {
+          en: "Who is the program for?",
+          ar: "لمن هذا البرنامج؟",
+        },
+        answer: {
+          en: "Marketing teams at KSA and Gulf mid-market companies that want shipped output, not certificates.",
+          ar: "فرق التسويق في شركات السوق المتوسطة بالسعودية والخليج التي تريد إنتاجًا فعليًا لا شهادات.",
         },
       },
     ],
