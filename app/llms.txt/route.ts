@@ -47,6 +47,7 @@ function entry(title: string, url: string, description?: string): string {
 
 export function GET() {
   const dict = getDictionary("en");
+  const dictAr = getDictionary("ar");
 
   const serviceLines = services
     .map((service) =>
@@ -67,13 +68,32 @@ export function GET() {
     )
     .join("\n");
 
+  const arServiceLines = services
+    .map((service) =>
+      entry(service.name.ar, `${siteUrl}/ar/services/${service.slug}`, service.short.ar)
+    )
+    .join("\n");
+
+  const arSectorLines = sectors
+    .map((sector) =>
+      entry(sector.name.ar, `${siteUrl}/ar/sectors/${sector.slug}`, sector.context.ar)
+    )
+    .join("\n");
+
+  const arPostLines = getAllPosts()
+    .slice(0, MAX_POSTS)
+    .map((post) =>
+      entry(post.title.ar, `${siteUrl}/ar/insights/${post.slug}`, post.excerpt.ar)
+    )
+    .join("\n");
+
   const md = `# ${siteName.en} (${siteName.ar})
 
 > ${dict.brand.tagline} ${dict.brand.subline}
 
 ${dict.hero.credibility}
 
-Founder: ${founderName.en} · Contact: ${contactEmail} · English pages are listed here; every page has an Arabic equivalent at the matching \`/ar/\` path.
+Founder: ${founderName.en} · Contact: ${contactEmail} · English pages first, Arabic pages in the sections marked (العربية) below. Full article text: [llms-full.txt](${siteUrl}/llms-full.txt).
 
 ## Services
 
@@ -103,11 +123,34 @@ ${entry("Contact", `${siteUrl}/en/contact`, "Get in touch with the team.")}
 ${entry("LinkedIn", socialLinks.linkedin)}
 ${entry("X (Twitter)", socialLinks.x)}
 
+## Services (الخدمات بالعربية)
+
+${entry(dictAr.sections.allServices, `${siteUrl}/ar/services`, "نظرة عامة على جميع الخدمات.")}
+${arServiceLines}
+
+## Sectors (القطاعات بالعربية)
+
+${entry(dictAr.sections.allSectors, `${siteUrl}/ar/sectors`, "نظرة عامة على جميع القطاعات.")}
+${arSectorLines}
+
+## Insights (الرؤى بالعربية)
+
+${entry(dictAr.sections.allInsights, `${siteUrl}/ar/insights`, "جميع المقالات في التسويق والذكاء الاصطناعي واقتصاد إعادة إعمار سوريا.")}
+${arPostLines}
+
+## Tools (الأدوات بالعربية)
+
+${entry(dictAr.tools.scorecardTitle, `${siteUrl}/ar/tools/readiness-scorecard`, dictAr.tools.scorecardDesc)}
+
 ## Optional
 
 ${entry("Home", `${siteUrl}/en`, "Homepage.")}
+${entry("الرئيسية", `${siteUrl}/ar`, "الصفحة الرئيسية بالعربية.")}
+${entry("About (عن تبيان)", `${siteUrl}/ar/about`, "من هي تبيان وكيف نعمل.")}
 ${entry("Subscribe", `${siteUrl}/en/subscribe`, "Get new insights by email.")}
-${entry("RSS feed", `${siteUrl}/en/feed.xml`, "Insights RSS feed.")}
+${entry("RSS feed (EN)", `${siteUrl}/en/feed.xml`, "Insights RSS feed.")}
+${entry("RSS feed (AR)", `${siteUrl}/ar/feed.xml`, "خلاصة RSS بالعربية.")}
+${entry("Full article text", `${siteUrl}/llms-full.txt`, "All insights in full, both languages, one file.")}
 ${entry("Privacy Policy", `${siteUrl}/en/privacy`)}
 ${entry("Terms", `${siteUrl}/en/terms`)}
 `;

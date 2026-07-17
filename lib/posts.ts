@@ -16,6 +16,8 @@ export interface Post {
   title: Localized;
   excerpt: Localized;
   html: Localized;
+  /** Raw markdown body, for full-text surfaces like llms-full.txt. */
+  markdown: Localized;
 }
 
 interface PostFile {
@@ -24,6 +26,7 @@ interface PostFile {
   pillar: string;
   excerpt: string;
   html: string;
+  markdown: string;
 }
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
@@ -56,6 +59,7 @@ function parseFile(filePath: string): PostFile {
     pillar: String(data.pillar ?? ""),
     excerpt: String(data.excerpt ?? ""),
     html,
+    markdown: content.trim(),
   };
 }
 
@@ -107,6 +111,7 @@ export function getAllPosts(): Post[] {
       pillar: localized("pillar"),
       title: localized("title"),
       excerpt: localized("excerpt"),
+      markdown: localized("markdown"),
       html: Object.fromEntries(
         locales.map((l) => [l, localizeInternalLinks(pick(l).file.html, l)])
       ) as Localized,
