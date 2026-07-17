@@ -1,4 +1,10 @@
-import { siteName, siteUrl, type Locale } from "@/lib/i18n";
+import {
+  founderName,
+  siteName,
+  siteUrl,
+  socialLinks,
+  type Locale,
+} from "@/lib/i18n";
 
 export function localeUrl(locale: Locale, path: string): string {
   return `${siteUrl}/${locale}${path}`;
@@ -11,6 +17,43 @@ export function organizationRef() {
     name: siteName.en,
     url: siteUrl,
     logo: `${siteUrl}/icon.svg`,
+  };
+}
+
+/** The founder as a Person, for author/E-E-A-T attribution. */
+export function founderPerson(locale: Locale) {
+  return {
+    "@type": "Person",
+    name: founderName[locale],
+    url: localeUrl(locale, "/about"),
+    jobTitle: locale === "ar" ? "المؤسس" : "Founder",
+    worksFor: organizationRef(),
+    sameAs: [socialLinks.linkedin, socialLinks.x],
+  };
+}
+
+export function itemList(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.name,
+      url: item.url,
+    })),
+  };
+}
+
+export function faqPage(faqs: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
+    })),
   };
 }
 

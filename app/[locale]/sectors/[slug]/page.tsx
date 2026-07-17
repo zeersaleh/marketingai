@@ -7,7 +7,7 @@ import { getDictionary } from "@/content/dictionary";
 import { getSector, sectors } from "@/content/sectors";
 import { getService } from "@/content/services";
 import CtaBand from "@/components/CtaBand";
-import { JsonLd, breadcrumbList, localeUrl } from "@/lib/jsonld";
+import { JsonLd, breadcrumbList, localeUrl, organizationRef } from "@/lib/jsonld";
 
 export function generateStaticParams() {
   return locales.flatMap((locale) =>
@@ -41,6 +41,16 @@ export default async function SectorPage({
   if (!sector) notFound();
   const dict = getDictionary(locale);
 
+  const sectorJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: sector.name[locale],
+    description: sector.context[locale],
+    provider: organizationRef(),
+    areaServed: ["Syria", "Saudi Arabia", "Gulf Cooperation Council"],
+    url: localeUrl(locale, `/sectors/${slug}`),
+  };
+
   const breadcrumbJsonLd = breadcrumbList([
     { name: locale === "ar" ? "الرئيسية" : "Home", url: localeUrl(locale, "") },
     { name: dict.nav.sectors, url: localeUrl(locale, "/sectors") },
@@ -54,6 +64,7 @@ export default async function SectorPage({
 
   return (
     <>
+      <JsonLd data={sectorJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
       <section className="bg-navy-950 text-sand-50">
         <div className="mx-auto max-w-6xl px-4 py-16">

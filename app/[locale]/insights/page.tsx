@@ -4,6 +4,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getAllPosts } from "@/lib/posts";
+import { JsonLd, itemList, localeUrl } from "@/lib/jsonld";
 
 export async function generateMetadata({
   params,
@@ -32,6 +33,14 @@ export default async function InsightsPage({
 
   return (
     <section className="mx-auto max-w-4xl px-4 py-16">
+      <JsonLd
+        data={itemList(
+          sorted.map((post) => ({
+            name: post.title[locale],
+            url: localeUrl(locale, `/insights/${post.slug}`),
+          }))
+        )}
+      />
       <h1 className="text-4xl font-bold text-navy-900">
         {dict.insights.heading}
       </h1>
