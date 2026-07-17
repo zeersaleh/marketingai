@@ -31,6 +31,15 @@ export const contactEmail =
 export const whatsappNumber =
   process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "905317395933";
 
+/**
+ * Booking page for /book-a-call. A Google Calendar appointment-schedule
+ * "Website embed" URL (calendar.google.com/...?gv=true) renders inline;
+ * any other link (short link, Cal.com, Calendly) renders as a button.
+ */
+export const bookingUrl =
+  process.env.NEXT_PUBLIC_BOOKING_URL ??
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0akSlaGpoH0NVINN4t4rB0m-5CwhXtAtlzUQ351u8wjeK939WnYD1Szh868NM3_KkPtcaBRUdo?gv=true";
+
 export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/salehzeer/",
   x: "https://x.com/Saleh_Zeer_",
