@@ -38,7 +38,7 @@ export const whatsappNumber =
  */
 export const bookingUrl =
   process.env.NEXT_PUBLIC_BOOKING_URL ??
-  "https://calendar.app.google/fBQFS18Ugj4f4Mr97";
+  "https://calendar.google.com/calendar/appointments/schedules/AcZssZ0akSlaGpoH0NVINN4t4rB0m-5CwhXtAtlzUQ351u8wjeK939WnYD1Szh868NM3_KkPtcaBRUdo?gv=true";
 
 export const socialLinks = {
   linkedin: "https://www.linkedin.com/in/salehzeer/",
