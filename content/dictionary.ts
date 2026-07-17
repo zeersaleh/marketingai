@@ -140,6 +140,9 @@ const en = {
   booking: {
     heading: "Book a call",
     body: "A 30-minute conversation about your market-entry situation. To route you to the right conversation, the booking form asks three things: your sector, investment stage, and primary market of origin.",
+    cta: "Open the booking calendar",
+    opensInNewTab:
+      "Opens Google Calendar in a new tab — pick a time and you'll get a Google Meet invite.",
     fallback:
       "Our booking calendar is being set up. In the meantime, reach us on WhatsApp or by email and we'll schedule directly.",
   },
@@ -320,6 +323,9 @@ const ar: typeof en = {
   booking: {
     heading: "احجز مكالمة",
     body: "حوار لمدة ثلاثين دقيقة حول وضعك في دخول السوق. ولتوجيهك إلى المحادثة المناسبة، يسألك نموذج الحجز ثلاثة أسئلة: قطاعك، ومرحلة استثمارك، وسوق المنشأ الرئيسي.",
+    cta: "افتح تقويم الحجز",
+    opensInNewTab:
+      "يفتح تقويم Google في نافذة جديدة — اختر موعدًا وستصلك دعوة Google Meet.",
     fallback:
       "تقويم الحجز قيد الإعداد حاليًا. يمكنك التواصل عبر واتساب أو البريد الإلكتروني وسنرتّب الموعد مباشرة.",
   },
