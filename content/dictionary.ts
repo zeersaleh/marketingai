@@ -2,6 +2,8 @@ import type { Locale } from "@/lib/i18n";
 
 const en = {
   nav: {
+    enteringSyria: "Entering Syria",
+    gulfAi: "Marketing AI",
     services: "Services",
     sectors: "Sectors",
     insights: "Insights",
@@ -23,6 +25,85 @@ const en = {
       "The Caesar Act was repealed in December 2025 and Syria's central bank is back on SWIFT — the reconstruction economy is open. Reliable market data and brand trust are not. That gap is our work.",
     primaryCta: "Get your market-entry readiness score",
     secondaryCta: "Book a call",
+  },
+  home: {
+    tagline:
+      "Marketing strategy for entering Syria. Applied AI for Gulf marketing teams.",
+    subline:
+      "One consultancy, two clearly defined routes — evidence-first and natively bilingual in both.",
+    routesHeading: "Choose your route",
+  },
+  syriaRoute: {
+    label: "For investors and market entrants",
+    heading: "Entering Syria",
+    sub: "Marketing, communications, and market intelligence for Syria's reconstruction economy — built for a market where data is scarce and every move is scrutinized.",
+    bullets: [
+      {
+        title: "Market-entry evidence",
+        body: "Proxy-data models and primary research, so sizing and channel decisions rest on evidence rather than anecdote.",
+      },
+      {
+        title: "Stakeholder communications",
+        body: "Communications built for regulators, media, communities, and investors — designed to withstand scrutiny.",
+      },
+      {
+        title: "Arabic localization",
+        body: "Arabic written natively, not translated — for consumers, partners, and government audiences.",
+      },
+      {
+        title: "Sector-specific intelligence",
+        body: "Entry intelligence for the six reconstruction sectors, from energy to banking.",
+      },
+    ],
+    cta: "Assess your market-entry readiness",
+    secondaryCta: "Explore the Syria route",
+    servicesHeading: "Services for market entrants",
+    insightsHeading: "Syria insights",
+  },
+  gulfRoute: {
+    label: "For KSA and Gulf marketing teams",
+    heading: "Enabling a Gulf marketing team with Applied AI",
+    sub: "Corporate enablement run on your live campaigns, not slides — your team ships AI-assisted work in weeks, in Arabic and English.",
+    bullets: [
+      {
+        title: "Workflow audit",
+        body: "A structured audit of how your team briefs, produces, approves, and measures — and where AI genuinely fits.",
+      },
+      {
+        title: "Arabic-output evaluation",
+        body: "AI-generated Arabic evaluated against a native standard, so quality is measured, not assumed.",
+      },
+      {
+        title: "Governance and data handling",
+        body: "Clear rules for tools, data, and disclosure, aligned with your legal and compliance requirements.",
+      },
+      {
+        title: "Live-campaign implementation",
+        body: "Enablement delivered on real campaigns, so your team ships AI-assisted work — not certificates.",
+      },
+    ],
+    cta: "Assess your marketing workflow",
+    secondaryCta: "Explore the Applied AI route",
+    programCta: "See the full program",
+    methodologySteps: [
+      {
+        title: "Audit",
+        body: "A workflow audit across briefing, production, approval, and measurement — with an Arabic-output baseline.",
+      },
+      {
+        title: "Pilot",
+        body: "AI-assisted execution piloted on live campaigns, with governance and data-handling rules agreed up front.",
+      },
+      {
+        title: "Adoption",
+        body: "Measurement of adoption and output quality, then a retainer cadence that keeps the capability in-house.",
+      },
+    ],
+    servicesHeading: "The program behind this route",
+    insightsHeading: "Applied AI insights",
+    diagnosticHeading: "Assess your marketing workflow",
+    diagnosticBody:
+      "A structured look at how your team briefs, produces, approves, and measures — and where AI will actually move the numbers. Start with a 30-minute working session.",
   },
   problems: {
     heading: "Four problems every investor here shares",
@@ -152,12 +233,15 @@ const en = {
     terms: "Terms of use",
     rights: "All rights reserved.",
     positioning:
-      "Bilingual marketing and communications strategy for Syria's reconstruction economy.",
+      "Bilingual marketing strategy for Syria market entry, and applied-AI enablement for Gulf marketing teams.",
   },
   cta: {
     band: "Ready to talk about your market entry?",
     bandSub:
       "Start with the readiness scorecard, or go straight to a conversation.",
+    neutralBand: "Not sure which route fits?",
+    neutralBandSub:
+      "Book a 30-minute call and we'll point you to the right starting point.",
   },
   insights: {
     heading: "Insights",
@@ -185,6 +269,8 @@ const en = {
  */
 const ar: typeof en = {
   nav: {
+    enteringSyria: "دخول سوريا",
+    gulfAi: "الذكاء الاصطناعي للتسويق",
     services: "خدماتنا",
     sectors: "القطاعات",
     insights: "رؤى",
@@ -206,6 +292,85 @@ const ar: typeof en = {
       "أُلغي قانون قيصر في كانون الأول 2025 وعاد المصرف المركزي السوري إلى نظام سويفت — اقتصاد إعادة الإعمار مفتوح. أما البيانات الموثوقة وثقة السوق فما تزال نادرة. وهذه الفجوة هي عملنا.",
     primaryCta: "احسب جاهزيتك لدخول السوق",
     secondaryCta: "احجز مكالمة",
+  },
+  home: {
+    tagline:
+      "استراتيجية تسويق لدخول السوق السورية. وذكاء اصطناعي تطبيقي لفرق التسويق الخليجية.",
+    subline:
+      "استشارية واحدة ومساران واضحان — قائمان على الأدلة وثنائيا اللغة بحق.",
+    routesHeading: "اختر مسارك",
+  },
+  syriaRoute: {
+    label: "للمستثمرين والداخلين إلى السوق",
+    heading: "دخول السوق السورية",
+    sub: "تسويق واتصالات ومعلومات سوق لاقتصاد إعادة إعمار سوريا — لسوقٍ تندر فيه البيانات وتخضع فيه كل خطوة للتدقيق.",
+    bullets: [
+      {
+        title: "أدلة دخول السوق",
+        body: "نماذج بيانات بديلة وأبحاث ميدانية، لتستند قرارات حجم السوق والقنوات إلى أدلة لا انطباعات.",
+      },
+      {
+        title: "اتصالات أصحاب المصلحة",
+        body: "اتصالات مصمّمة للجهات الرقابية والإعلام والمجتمعات المحلية والمستثمرين — لتصمد أمام التدقيق.",
+      },
+      {
+        title: "التوطين العربي",
+        body: "عربية تُكتب كتابةً أصيلة لا ترجمة — للمستهلكين والشركاء والجهات الحكومية.",
+      },
+      {
+        title: "معلومات قطاعية متخصصة",
+        body: "معلومات دخول متخصصة لقطاعات إعادة الإعمار الستة، من الطاقة إلى الخدمات المصرفية.",
+      },
+    ],
+    cta: "قيّم جاهزيتك لدخول السوق",
+    secondaryCta: "استكشف مسار سوريا",
+    servicesHeading: "خدمات الداخلين إلى السوق",
+    insightsHeading: "رؤى سوريا",
+  },
+  gulfRoute: {
+    label: "لفرق التسويق في السعودية والخليج",
+    heading: "تمكين فريق تسويق خليجي بالذكاء الاصطناعي التطبيقي",
+    sub: "تمكين مؤسسي يُنفَّذ على حملاتكم الفعلية لا على شرائح العروض — ليُنجز فريقكم عملًا معزّزًا بالذكاء الاصطناعي خلال أسابيع، بالعربية والإنجليزية.",
+    bullets: [
+      {
+        title: "تدقيق سير العمل",
+        body: "تدقيق منهجي لطريقة فريقكم في الإسناد والإنتاج والاعتماد والقياس — وأين يفيد الذكاء الاصطناعي فعلًا.",
+      },
+      {
+        title: "تقييم المخرجات العربية",
+        body: "تقييم العربية المولَّدة بالذكاء الاصطناعي وفق معيار كتابة أصيل، فالجودة تُقاس ولا تُفترض.",
+      },
+      {
+        title: "الحوكمة ومعالجة البيانات",
+        body: "قواعد واضحة للأدوات والبيانات والإفصاح، متوافقة مع متطلباتكم القانونية ومتطلبات الامتثال.",
+      },
+      {
+        title: "التنفيذ على حملات فعلية",
+        body: "تمكين يُنفَّذ على حملاتكم الحقيقية، ليُنجز فريقكم عملًا معزّزًا بالذكاء الاصطناعي — لا شهادات.",
+      },
+    ],
+    cta: "قيّم سير عملكم التسويقي",
+    secondaryCta: "استكشف مسار الذكاء الاصطناعي التطبيقي",
+    programCta: "اطّلع على البرنامج كاملًا",
+    methodologySteps: [
+      {
+        title: "التدقيق",
+        body: "تدقيق سير العمل عبر الإسناد والإنتاج والاعتماد والقياس — مع خط أساس لجودة المخرجات العربية.",
+      },
+      {
+        title: "التجربة",
+        body: "تنفيذ معزّز بالذكاء الاصطناعي يُجرَّب على حملات فعلية، بقواعد حوكمة ومعالجة بيانات متفق عليها مسبقًا.",
+      },
+      {
+        title: "التبنّي",
+        body: "قياس التبنّي وجودة المخرجات، ثم إيقاع استشاري مستمر يُبقي القدرة داخل فريقكم.",
+      },
+    ],
+    servicesHeading: "البرنامج خلف هذا المسار",
+    insightsHeading: "رؤى الذكاء الاصطناعي التطبيقي",
+    diagnosticHeading: "قيّم سير عملكم التسويقي",
+    diagnosticBody:
+      "نظرة منهجية إلى طريقة فريقكم في الإسناد والإنتاج والاعتماد والقياس — وأين سيحرّك الذكاء الاصطناعي الأرقام فعلًا. ابدأ بجلسة عمل من ثلاثين دقيقة.",
   },
   problems: {
     heading: "أربع مشكلات يتشاركها كل مستثمر هنا",
@@ -335,11 +500,14 @@ const ar: typeof en = {
     terms: "شروط الاستخدام",
     rights: "جميع الحقوق محفوظة.",
     positioning:
-      "استراتيجيات تسويق واتصالات ثنائية اللغة لاقتصاد إعادة إعمار سوريا.",
+      "استراتيجيات تسويق ثنائية اللغة لدخول السوق السورية، وتمكين بالذكاء الاصطناعي التطبيقي لفرق التسويق الخليجية.",
   },
   cta: {
     band: "جاهز للحديث عن دخولك إلى السوق؟",
     bandSub: "ابدأ بمؤشر الجاهزية، أو انتقل مباشرة إلى محادثة.",
+    neutralBand: "لست متأكدًا أي مسار يناسبك؟",
+    neutralBandSub:
+      "احجز مكالمة من ثلاثين دقيقة ونرشدك إلى نقطة البداية الصحيحة.",
   },
   insights: {
     heading: "رؤى",

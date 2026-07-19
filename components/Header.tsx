@@ -7,8 +7,9 @@ import BrandMark from "@/components/BrandMark";
 export default function Header({ locale }: { locale: Locale }) {
   const dict = getDictionary(locale);
   const nav = [
+    { href: `/${locale}/entering-syria`, label: dict.nav.enteringSyria },
+    { href: `/${locale}/gulf-marketing-ai`, label: dict.nav.gulfAi },
     { href: `/${locale}/services`, label: dict.nav.services },
-    { href: `/${locale}/sectors`, label: dict.nav.sectors },
     { href: `/${locale}/insights`, label: dict.nav.insights },
     { href: `/${locale}/tools`, label: dict.nav.tools },
     { href: `/${locale}/about`, label: dict.nav.about },

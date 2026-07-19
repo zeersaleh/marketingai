@@ -11,8 +11,12 @@ export interface Faq {
   answer: Localized;
 }
 
+export type ServiceRoute = "syria" | "gulf";
+
 export interface Service {
   slug: string;
+  /** Which audience route the service belongs to (drives landing-page grouping). */
+  route: ServiceRoute;
   name: Localized;
   short: Localized;
   problem: Localized;
@@ -51,6 +55,7 @@ const standardTiers = (
 export const services: Service[] = [
   {
     slug: "market-entry-strategy",
+    route: "syria",
     name: { en: "Market-Entry Strategy", ar: "استراتيجية دخول السوق" },
     short: {
       en: "Research and strategy for a market where reliable data barely exists.",
@@ -133,6 +138,7 @@ export const services: Service[] = [
   },
   {
     slug: "responsible-investment-communications",
+    route: "syria",
     name: {
       en: "Responsible Investment Communications",
       ar: "اتصالات الاستثمار المسؤول",
@@ -218,6 +224,7 @@ export const services: Service[] = [
   },
   {
     slug: "ai-marketing-execution",
+    route: "syria",
     name: { en: "AI Marketing Execution", ar: "تنفيذ التسويق بالذكاء الاصطناعي" },
     short: {
       en: "Arabic-first campaigns, AI-assisted operations, and answer-engine visibility.",
@@ -300,6 +307,7 @@ export const services: Service[] = [
   },
   {
     slug: "diaspora-bridge-strategy",
+    route: "syria",
     name: {
       en: "Diaspora & Community Bridge Strategy",
       ar: "استراتيجية جسر الاغتراب والمجتمع",
@@ -385,6 +393,7 @@ export const services: Service[] = [
   },
   {
     slug: "applied-ai-for-marketing-teams",
+    route: "gulf",
     name: {
       en: "Applied AI for Marketing Teams",
       ar: "الذكاء الاصطناعي التطبيقي لفرق التسويق",

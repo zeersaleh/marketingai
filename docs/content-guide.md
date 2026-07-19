@@ -53,7 +53,11 @@ Rules that matter:
   blog stays organized: *Syria market entry*, *Regulatory & Market Tracker*,
   *Responsible investment communications*, *AI marketing in practice*,
   *Bilingual & cross-cultural craft*, *Methodology* — Arabic equivalents in the
-  `.ar.md` file.
+  `.ar.md` file. The **English pillar string is canonical**: the two audience
+  landing pages (`/entering-syria`, `/gulf-marketing-ai`) filter their insights
+  sections by `pillar` in the `.en.md` file (see `lib/route-content.ts`), so an
+  off-list or misspelled English pillar drops the post from those pages. Every
+  post needs an `.en.md` file, even if the article itself launches Arabic-first.
 - **If you only have time for one language**, publish it — the site shows the
   original-language version to both audiences with a polite notice instead of
   hiding the post. Add the second language later by adding the second file.

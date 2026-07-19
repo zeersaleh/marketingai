@@ -95,6 +95,11 @@ ${dict.hero.credibility}
 
 Founder: ${founderName.en} · Contact: ${contactEmail} · English pages first, Arabic pages in the sections marked (العربية) below. Full article text: [llms-full.txt](${siteUrl}/llms-full.txt).
 
+## Routes
+
+${entry(dict.syriaRoute.heading, `${siteUrl}/en/entering-syria`, dict.syriaRoute.sub)}
+${entry(dict.gulfRoute.heading, `${siteUrl}/en/gulf-marketing-ai`, dict.gulfRoute.sub)}
+
 ## Services
 
 ${entry(dict.sections.allServices, `${siteUrl}/en/services`, "Overview of all service lines.")}
@@ -122,6 +127,11 @@ ${entry("Book a Call", `${siteUrl}/en/book-a-call`, "Schedule an introductory co
 ${entry("Contact", `${siteUrl}/en/contact`, "Get in touch with the team.")}
 ${entry("LinkedIn", socialLinks.linkedin)}
 ${entry("X (Twitter)", socialLinks.x)}
+
+## Routes (المسارات بالعربية)
+
+${entry(dictAr.syriaRoute.heading, `${siteUrl}/ar/entering-syria`, dictAr.syriaRoute.sub)}
+${entry(dictAr.gulfRoute.heading, `${siteUrl}/ar/gulf-marketing-ai`, dictAr.gulfRoute.sub)}
 
 ## Services (الخدمات بالعربية)
 

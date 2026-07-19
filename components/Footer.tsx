@@ -73,6 +73,27 @@ export default function Footer({ locale }: { locale: Locale }) {
           </p>
           <ul className="mt-2 space-y-2">
             <li>
+              <Link
+                href={`/${locale}/entering-syria`}
+                className="hover:text-sand-50"
+              >
+                {dict.nav.enteringSyria}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={`/${locale}/gulf-marketing-ai`}
+                className="hover:text-sand-50"
+              >
+                {dict.nav.gulfAi}
+              </Link>
+            </li>
+            <li>
+              <Link href={`/${locale}/sectors`} className="hover:text-sand-50">
+                {dict.nav.sectors}
+              </Link>
+            </li>
+            <li>
               <Link href={`/${locale}/privacy`} className="hover:text-sand-50">
                 {dict.footer.privacy}
               </Link>
