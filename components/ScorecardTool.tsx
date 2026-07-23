@@ -9,6 +9,7 @@ import {
   type ScorecardVariantId,
 } from "@/lib/scorecard-config";
 import type { Dictionary } from "@/content/dictionary";
+import { track } from "@/lib/analytics";
 
 interface ResultPayload {
   overall: number;
@@ -60,7 +61,13 @@ export default function ScorecardTool({
         setError(body.error === "invalid-email" ? labels.invalidEmail : labels.errorGeneric);
         return;
       }
-      setResult((await res.json()) as ResultPayload);
+      const payload = (await res.json()) as ResultPayload;
+      setResult(payload);
+      track("scorecard_complete", {
+        score: payload.overall,
+        locale,
+        subscribed: subscribe,
+      });
     } catch {
       setError(labels.errorGeneric);
     } finally {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
+import { track } from "@/lib/analytics";
 
 interface Labels {
   emailPlaceholder: string;
@@ -43,6 +44,11 @@ export default function NewsletterForm({
       }
       const data = (await res.json()) as { status?: string };
       setStatus(data.status === "pending" ? "pending" : "done");
+      track("newsletter_subscribe", {
+        locale,
+        language_preference: language,
+        double_optin: data.status === "pending",
+      });
     } catch {
       setStatus("error");
     }
