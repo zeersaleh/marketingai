@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { Locale } from "@/lib/i18n";
 import type { Dictionary } from "@/content/dictionary";
+import { track } from "@/lib/analytics";
 
 export default function ContactForm({
   locale,
@@ -25,7 +26,12 @@ export default function ContactForm({
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ ...form, locale }),
       });
-      setStatus(res.ok ? "done" : "error");
+      if (res.ok) {
+        setStatus("done");
+        track("contact_submit", { locale });
+      } else {
+        setStatus("error");
+      }
     } catch {
       setStatus("error");
     }
