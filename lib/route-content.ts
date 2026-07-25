@@ -1,20 +1,19 @@
 import type { Post } from "@/lib/posts";
+import { getCategory } from "@/lib/categories";
 
 /**
- * Pillar allowlists for the two audience routes. Filtering keys on the
- * English pillar string — it is the canonical value; Arabic pillar
- * strings vary for the same pillar across posts.
+ * Pillar allowlists for the two audience routes, derived from the category
+ * registry (content/taxonomy.json). Filtering keys on the English pillar
+ * string — it is the canonical value; Arabic pillar strings vary for the
+ * same pillar across posts. Unlike categories, these audience lists may
+ * overlap: bilingual-craft posts are relevant to both routes.
  */
 export const SYRIA_PILLARS = [
-  "Syria market entry",
-  "Regulatory & Market Tracker",
+  ...getCategory("syria-market-entry")!.pillars,
   "Bilingual & cross-cultural craft",
 ];
 
-export const GULF_PILLARS = [
-  "AI marketing in practice",
-  "Bilingual & cross-cultural craft",
-];
+export const GULF_PILLARS = [...getCategory("ai-marketing")!.pillars];
 
 /**
  * Newest posts whose pillar is in the allowlist, topped up with the

@@ -5,6 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getAllPosts } from "@/lib/posts";
 import CtaBand from "@/components/CtaBand";
+import PostCard from "@/components/PostCard";
 
 export async function generateMetadata({
   params,
@@ -132,21 +133,12 @@ export default async function HomePage({
         </div>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
           {latest.map((post) => (
-            <Link
+            <PostCard
               key={post.slug}
-              href={`/${locale}/insights/${post.slug}`}
-              className="group rounded-xl border border-sand-200 bg-white p-5 shadow-sm transition-shadow hover:shadow-md"
-            >
-              <p className="text-xs font-semibold uppercase tracking-wide text-gold-600">
-                {post.pillar[locale]}
-              </p>
-              <h3 className="mt-2 font-semibold leading-snug text-navy-900 group-hover:text-gold-600">
-                {post.title[locale]}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-ink-600">
-                {post.excerpt[locale]}
-              </p>
-            </Link>
+              post={post}
+              locale={locale}
+              minReadLabel={dict.insights.minRead}
+            />
           ))}
         </div>
       </section>
