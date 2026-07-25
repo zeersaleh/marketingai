@@ -104,13 +104,19 @@ the landing page and miss every in-site navigation after it.
 event on each route change (skipping the first render, which container load
 already covers).
 
-**This needs a matching trigger in GTM or the pushes do nothing:**
+**The container has no `page_view` trigger, so these pushes currently go
+nowhere.** To wire it up:
 
 1. Triggers → New → **Custom Event**, event name `page_view`.
 2. Tags → New → **GA4 Event**, event name `page_view`, using your Google Tag as
    the configuration.
-3. Optional: create dataLayer variables for `page_path`, `page_location` and
-   `page_title` and map them onto the tag as event parameters.
+3. Create dataLayer variables for `page_location` and `page_title` and map them
+   onto the tag as event parameters. **This is required, not cosmetic.** A GA4
+   Event tag inherits `page_location`/`page_title` from the Google Tag's
+   configuration, which was captured at *container load* — so without explicit
+   values every SPA page view is attributed to the landing page URL, and the
+   report looks just as wrong as having no tracking at all. `page_path` is
+   optional (GA4 derives it from `page_location`).
 4. Publish.
 
 Verify in GTM Preview: navigate between pages on the site and confirm a
@@ -122,16 +128,37 @@ Verify in GTM Preview: navigate between pages on the site and confirm a
 
 ## 4. Conversion events
 
-`track()` pushes these. The container currently routes conversions through a
-single `GA4 - Conversion events` tag fired by one `CE - conversions` trigger, so
-two things are worth confirming there:
+All three route through one `GA4 - Conversion events` tag on the `CE -
+conversions` trigger. That tag is correctly built: Event Name is `{{Event}}`, so
+each event reaches GA4 under its real name, and it picks up the Google Tag's
+configuration from the container.
 
-- The trigger's event-name pattern actually matches all three events below
-  (a regex like `contact_submit|newsletter_subscribe|scorecard_complete`).
-  Anything narrower silently drops the others.
-- The tag's GA4 event name is **not** a hardcoded string — otherwise all three
-  conversions land in GA4 under one indistinguishable name. Use `{{Event}}` to
-  pass the dataLayer event name through.
+Its Event Parameters, however, are only `score` ({{DLV - score}}) and `locale`
+({{DLV - locale}}). Three parameters the site pushes are therefore dropped:
+
+| Event | Pushed | Reaching GA4 |
+| --- | --- | --- |
+| `contact_submit` | `locale` | all |
+| `newsletter_subscribe` | `locale`, `language_preference`, `double_optin` | `locale` only |
+| `scorecard_complete` | `score`, `locale`, `subscribed` | `score`, `locale` |
+
+To capture them: Variables → New → Data Layer Variable for each of
+`language_preference`, `double_optin` and `subscribed`, then add matching
+Event Parameter rows on the tag.
+
+Also confirm the `CE - conversions` trigger's event-name pattern matches all
+three events (e.g. regex `contact_submit|newsletter_subscribe|scorecard_complete`).
+Anything narrower silently drops the others.
+
+### Two GA4-side steps that are easy to miss
+
+- **Custom dimensions.** Event parameters are collected but stay invisible in
+  standard reports until registered at GA4 → Admin → Custom definitions. Add
+  `locale`, `language_preference`, `double_optin` and `subscribed` as
+  event-scoped custom dimensions, and `score` as a custom metric. Registration
+  is not retroactive — data before it exists cannot be broken out.
+- **Key events.** Conversions only count as conversions once marked at
+  GA4 → Admin → Events → "Mark as key event".
 
 | Event | Fired from | Parameters |
 | --- | --- | --- |
