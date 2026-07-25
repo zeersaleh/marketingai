@@ -4,6 +4,8 @@ import { dirOf, isLocale, locales, siteUrl, type Locale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/seo";
 import { getDictionary } from "@/content/dictionary";
 import { getAllPosts, getPost } from "@/lib/posts";
+import { categoryOf, postsInCategory } from "@/lib/categories";
+import PostCard from "@/components/PostCard";
 import {
   JsonLd,
   breadcrumbList,
@@ -47,6 +49,10 @@ export default async function PostPage({
   const post = getPost(slug);
   if (!post) notFound();
   const dict = getDictionary(locale);
+  const category = categoryOf(post);
+  const related = postsInCategory(getAllPosts(), category)
+    .filter((p) => p.slug !== post.slug)
+    .slice(0, 3);
 
   // Language the body is actually written in (fallback when untranslated).
   const contentLocale = post.contentLocale[locale];
@@ -59,6 +65,7 @@ export default async function PostPage({
     datePublished: post.date,
     dateModified: post.date,
     inLanguage: contentLocale,
+    articleSection: category.name[locale],
     url: localeUrl(locale, `/insights/${post.slug}`),
     mainEntityOfPage: localeUrl(locale, `/insights/${post.slug}`),
     image: `${siteUrl}/og.png`,
@@ -87,11 +94,20 @@ export default async function PostPage({
         >
           {post.title[locale]}
         </h1>
-        <time dateTime={post.date} className="mt-3 block text-sm text-ink-600">
-          {new Intl.DateTimeFormat(locale === "ar" ? "ar-SY" : "en-US", {
-            dateStyle: "long",
-          }).format(new Date(post.date))}
-        </time>
+        <p className="mt-3 flex flex-wrap items-center gap-x-2 text-sm text-ink-600">
+          <time dateTime={post.date}>
+            {new Intl.DateTimeFormat(locale === "ar" ? "ar-SY" : "en-US", {
+              dateStyle: "long",
+            }).format(new Date(post.date))}
+          </time>
+          <span aria-hidden="true">·</span>
+          <span>
+            {new Intl.NumberFormat(locale === "ar" ? "ar-SY" : "en-US").format(
+              post.readMinutes[locale]
+            )}{" "}
+            {dict.insights.minRead}
+          </span>
+        </p>
 
         {isFallback && (
           <p className="mt-4 rounded-md border-s-4 border-gold-500 bg-sand-100 p-3 text-sm text-ink-600">
@@ -105,6 +121,27 @@ export default async function PostPage({
           className="post-body mt-8"
           dangerouslySetInnerHTML={{ __html: post.html[locale] }}
         />
+
+        {/* Related posts from the same category */}
+        {related.length > 0 && (
+          <div className="mt-12">
+            <h2 className="text-lg font-bold text-navy-900">
+              {dict.insights.moreInCategory} {category.name[locale]}
+            </h2>
+            <div className="mt-4 grid gap-4 sm:grid-cols-3">
+              {related.map((p) => (
+                <PostCard
+                  key={p.slug}
+                  post={p}
+                  locale={locale}
+                  minReadLabel={dict.insights.minRead}
+                  variant="compact"
+                  headingLevel="h3"
+                />
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* End-of-post newsletter block */}
         <div className="mt-12 rounded-xl bg-navy-950 p-6 text-navy-100">

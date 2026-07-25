@@ -45,6 +45,34 @@ export function itemList(items: { name: string; url: string }[]) {
   };
 }
 
+/** A listing page (insights landing / category archive) with its posts. */
+export function collectionPage(opts: {
+  name: string;
+  description: string;
+  url: string;
+  inLanguage: Locale;
+  items: { name: string; url: string }[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: opts.name,
+    description: opts.description,
+    url: opts.url,
+    inLanguage: opts.inLanguage,
+    publisher: organizationRef(),
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: opts.items.map((item, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: item.name,
+        url: item.url,
+      })),
+    },
+  };
+}
+
 export function faqPage(faqs: { question: string; answer: string }[]) {
   return {
     "@context": "https://schema.org",

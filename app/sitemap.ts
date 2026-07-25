@@ -3,6 +3,7 @@ import { locales, siteUrl } from "@/lib/i18n";
 import { services } from "@/content/services";
 import { sectors } from "@/content/sectors";
 import { getAllPosts } from "@/lib/posts";
+import { categories } from "@/lib/categories";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPaths = [
@@ -16,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tools/readiness-scorecard",
     "/tools/workflow-scorecard",
     "/insights",
+    ...categories.map((c) => `/insights/${c.id}`),
     "/subscribe",
     "/book-a-call",
     "/contact",

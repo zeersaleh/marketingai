@@ -1,0 +1,30 @@
+{
+  "categories": [
+    {
+      "id": "syria-market-entry",
+      "name": {
+        "en": "Syria Market Entry",
+        "ar": "دخول السوق السورية"
+      },
+      "description": {
+        "en": "Market entry strategy, regulation, and the reconstruction economy — analysis for investors entering Syria.",
+        "ar": "استراتيجية دخول السوق والتنظيم واقتصاد إعادة الإعمار — تحليلات للمستثمرين الداخلين إلى سوريا."
+      },
+      "pillars": ["Syria market entry", "Regulatory & Market Tracker"],
+      "art": "syria"
+    },
+    {
+      "id": "ai-marketing",
+      "name": {
+        "en": "AI Marketing",
+        "ar": "التسويق بالذكاء الاصطناعي"
+      },
+      "description": {
+        "en": "Applied AI for marketing teams, and bilingual Arabic–English content craft.",
+        "ar": "الذكاء الاصطناعي التطبيقي لفرق التسويق، وحِرفة المحتوى ثنائي اللغة بالعربية والإنجليزية."
+      },
+      "pillars": ["AI marketing in practice", "Bilingual & cross-cultural craft"],
+      "art": "ai"
+    }
+  ]
+}
