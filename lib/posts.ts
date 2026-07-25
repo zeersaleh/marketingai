@@ -18,6 +18,10 @@ export interface Post {
   html: Localized;
   /** Raw markdown body, for full-text surfaces like llms-full.txt. */
   markdown: Localized;
+  /** Optional `category` frontmatter — overrides the pillar→category mapping. */
+  categoryOverride?: string;
+  /** Estimated reading time per display locale, at ~200 words/minute. */
+  readMinutes: Localized<number>;
 }
 
 interface PostFile {
@@ -25,6 +29,7 @@ interface PostFile {
   date: string;
   pillar: string;
   excerpt: string;
+  category: string;
   html: string;
   markdown: string;
 }
@@ -58,9 +63,16 @@ function parseFile(filePath: string): PostFile {
     date: String(data.date ?? ""),
     pillar: String(data.pillar ?? ""),
     excerpt: String(data.excerpt ?? ""),
+    category: String(data.category ?? ""),
     html,
     markdown: content.trim(),
   };
+}
+
+/** ~200 words/minute; whitespace splitting is acceptable for Arabic too. */
+function readMinutesOf(markdown: string): number {
+  const words = markdown.split(/\s+/).filter(Boolean).length;
+  return Math.max(1, Math.round(words / 200));
 }
 
 /**
@@ -115,6 +127,12 @@ export function getAllPosts(): Post[] {
       html: Object.fromEntries(
         locales.map((l) => [l, localizeInternalLinks(pick(l).file.html, l)])
       ) as Localized,
+      // English file wins when both declare a category override.
+      categoryOverride:
+        versions.en?.category || versions.ar?.category || undefined,
+      readMinutes: Object.fromEntries(
+        locales.map((l) => [l, readMinutesOf(pick(l).file.markdown)])
+      ) as Localized<number>,
     });
   }
 

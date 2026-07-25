@@ -9,6 +9,7 @@ import { getDictionary } from "@/content/dictionary";
 import { services } from "@/content/services";
 import { sectors } from "@/content/sectors";
 import { getAllPosts } from "@/lib/posts";
+import { categories } from "@/lib/categories";
 
 export const dynamic = "force-static";
 
@@ -58,6 +59,18 @@ export function GET() {
   const sectorLines = sectors
     .map((sector) =>
       entry(sector.name.en, `${siteUrl}/en/sectors/${sector.slug}`, sector.context.en)
+    )
+    .join("\n");
+
+  const categoryLines = categories
+    .map((c) =>
+      entry(c.name.en, `${siteUrl}/en/insights/${c.id}`, c.description.en)
+    )
+    .join("\n");
+
+  const arCategoryLines = categories
+    .map((c) =>
+      entry(c.name.ar, `${siteUrl}/ar/insights/${c.id}`, c.description.ar)
     )
     .join("\n");
 
@@ -113,6 +126,7 @@ ${sectorLines}
 ## Insights
 
 ${entry(dict.sections.allInsights, `${siteUrl}/en/insights`, "All articles on marketing, AI, and Syria's reconstruction economy.")}
+${categoryLines}
 ${postLines}
 
 ## Tools
@@ -147,6 +161,7 @@ ${arSectorLines}
 ## Insights (الرؤى بالعربية)
 
 ${entry(dictAr.sections.allInsights, `${siteUrl}/ar/insights`, "جميع المقالات في التسويق والذكاء الاصطناعي واقتصاد إعادة إعمار سوريا.")}
+${arCategoryLines}
 ${arPostLines}
 
 ## Tools (الأدوات بالعربية)
