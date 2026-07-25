@@ -17,6 +17,7 @@ import { getDictionary } from "@/content/dictionary";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ConsentBanner from "@/components/ConsentBanner";
+import RouteChangeTracker from "@/components/RouteChangeTracker";
 import "../globals.css";
 
 // Google Consent Mode v2: deny tracking storage by default, restore a prior
@@ -159,6 +160,7 @@ export default async function LocaleLayout({
                 title="gtm"
               />
             </noscript>
+            <RouteChangeTracker />
           </>
         )}
         <Header locale={locale} />
