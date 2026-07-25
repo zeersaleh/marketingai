@@ -22,34 +22,46 @@ Everything else — whether a GA4 tag exists, which measurement ID it points at,
 which triggers fire it — is configuration **inside the GTM container**, not code.
 So if GA4 shows no traffic, the cause is usually one of the two sections below.
 
-## 1. Check the container→GA4 link (GTM UI)
+## 1. Container state (verified 2026-07-25)
 
-Work through this in tagmanager.google.com on container `GTM-NSL66R33`:
+Container `GTM-NSL66R33` ("Tibyan" → www.tibyanstrategy.com) holds two tags:
 
-- [ ] **A GA4 Configuration tag exists.** Tag type "Google Tag" (or "GA4
-      Configuration" on older containers), Tag ID = your `G-XXXXXXX`. Confirm the
-      measurement ID character-for-character against GA4 → Admin → Data Streams.
-      A tag pointing at a *different* property is the classic "everything looks
-      wired but reports are empty" failure.
-- [ ] **That tag has a trigger.** It needs Initialization – All Pages (or All
-      Pages). A tag with no trigger never fires and shows no error.
-- [ ] **The container is PUBLISHED, not just saved.** Changes in a workspace are
-      invisible to the live site until you hit Submit → Publish. Check the
-      version number in the top right matches what you edited.
-- [ ] **Consent settings on the GA4 tag.** Tag → Advanced Settings → Consent
-      Settings. If "Require additional consent" lists `analytics_storage`, the
-      tag is fully blocked until the visitor accepts (see section 2).
-- [ ] **Preview mode.** GTM → Preview → enter the site URL. The GA4 tag should
-      appear under "Tags Fired". If it is under "Tags Not Fired", the reason is
-      shown on the tag's detail pane.
+| Tag | Type | Firing trigger |
+| --- | --- | --- |
+| `Google Tag G-MMCC8JH22K` | Google Tag | Initialization – All Pages |
+| `GA4 - Conversion events` | GA4 Event | `CE - conversions` (custom event) |
+
+Workspace Changes showed **0**, so these are published, not sitting unsubmitted.
+
+That rules out the usual suspects: a GA4 tag **does** exist, it **does** have a
+trigger, and the container **is** live. Two consequences worth writing down:
+
+- The Google Tag fires on **Initialization – All Pages**, which is container load
+  only. It does *not* re-fire on client-side navigation — see section 3.
+- No tag uses a **History Change** trigger, so adding the `page_view` Custom
+  Event trigger from section 3 cannot double-count.
+
+### What is still worth checking, in order
+
+- [ ] **Does `G-MMCC8JH22K` match the property you are reading reports in?**
+      GA4 → Admin → Data Streams, compare character for character. A tag pointing
+      at a different (or deleted) property is the classic "everything looks wired
+      but reports are empty" failure, and it is the last remaining explanation
+      for *zero* traffic rather than merely low traffic.
+- [ ] **Consent settings on the Google Tag.** Tag → Advanced Settings → Consent
+      Settings. `analytics_storage` is denied by default site-side (section 2),
+      which throttles this tag regardless of what is configured here.
+- [ ] **Preview mode.** GTM → Preview → enter the site URL. `Google Tag
+      G-MMCC8JH22K` should appear under "Tags Fired" on the first page. If it is
+      under "Tags Not Fired", the detail pane names the reason — usually consent.
 - [ ] **GA4 DebugView.** With Preview connected, GA4 → Admin → DebugView should
-      show `page_view` arriving. If GTM says "fired" but DebugView is empty, the
-      measurement ID is wrong or the property is filtering the traffic.
+      show `page_view` arriving. GTM saying "fired" while DebugView stays empty
+      means the measurement ID is wrong or the property is filtering the traffic.
 - [ ] **GA4 internal-traffic / developer filters.** GA4 → Admin → Data Streams →
       Configure tag settings → Define internal traffic. An overly broad IP rule,
       or a data filter left in "Testing" state, silently drops hits.
-- [ ] **Data retention and date range.** New properties show nothing for the
-      first 24–48h in standard reports; use Realtime to confirm sooner.
+- [ ] **Date range.** New properties show nothing in standard reports for the
+      first 24–48h; use Realtime to confirm sooner.
 
 ## 2. Consent Mode is deny-by-default
 
@@ -110,8 +122,16 @@ Verify in GTM Preview: navigate between pages on the site and confirm a
 
 ## 4. Conversion events
 
-`track()` pushes these; each needs its own Custom Event trigger + GA4 Event tag,
-same pattern as above.
+`track()` pushes these. The container currently routes conversions through a
+single `GA4 - Conversion events` tag fired by one `CE - conversions` trigger, so
+two things are worth confirming there:
+
+- The trigger's event-name pattern actually matches all three events below
+  (a regex like `contact_submit|newsletter_subscribe|scorecard_complete`).
+  Anything narrower silently drops the others.
+- The tag's GA4 event name is **not** a hardcoded string — otherwise all three
+  conversions land in GA4 under one indistinguishable name. Use `{{Event}}` to
+  pass the dataLayer event name through.
 
 | Event | Fired from | Parameters |
 | --- | --- | --- |
